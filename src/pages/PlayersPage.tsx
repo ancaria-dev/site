@@ -42,8 +42,8 @@ export function PlayersPage() {
         <section className={styles.section}>
           <h2>Managing mods</h2>
           <p>
-            The <strong>Available</strong> tab lists mods from the default Sacred Rune Mod List
-            (SRML) repository. Tick the ones you want, and the launcher stages them into{' '}
+            The <strong>Available</strong> tab lists mods from the default Sacred Repository Mod
+            Layout (SRML) repository. Tick the ones you want, and the launcher stages them into{' '}
             <code>&lt;Sacred Gold&gt;\mods</code> for you.
           </p>
           <p>
@@ -73,9 +73,9 @@ export function PlayersPage() {
 
         <Callout label="Read before you play" tone="crimson">
           <p>
-            Ancaria is built for single-player only. It ships no multiplayer features, no DRM
-            circumvention, and no copy of the game itself. Hooks live only in the running process.
-            Close the game, and it’s as if the loader was never there.
+            Ancaria Dev project is built for single-player only. It ships no multiplayer features,
+            no DRM circumvention, and no copy of the game itself. Hooks live only in the running
+            process. Close the game, and it’s as if the loader was never there.
           </p>
         </Callout>
 

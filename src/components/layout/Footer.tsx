@@ -60,12 +60,12 @@ export function Footer() {
 
       <div className={styles.legal}>
         <p>
-          Ancaria is an independent, fan-made proof of concept. It isn’t affiliated with, endorsed
-          by, or connected to Ascaron Entertainment, THQ Nordic, or any rights holder of Sacred or
-          Sacred Gold. It requires a legally owned, installed copy of the game and ships no game
-          files, executables, or DRM circumvention. It touches nothing on disk: hooks exist only in
-          the running process and disappear when it exits. It targets single-player use only, with
-          no multiplayer and no competitive advantage.
+          Ancaria Dev project is an independent, fan-made proof of concept. It isn’t affiliated
+          with, endorsed by, or connected to Ascaron Entertainment, THQ Nordic, or any rights holder
+          of Sacred or Sacred Gold. It requires a legally owned, installed copy of the game and
+          ships no game files, executables, or DRM circumvention. It touches nothing on disk: hooks
+          exist only in the running process and disappear when it exits. It targets single-player
+          use only, with no multiplayer and no competitive advantage.
         </p>
         <p className={styles.copyright}>
           &copy; {new Date().getFullYear()} MairwunNx. Code under the{' '}
