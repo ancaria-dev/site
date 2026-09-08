@@ -1,0 +1,85 @@
+@import (reference) '../../styles/tokens.less';
+
+.footer {
+  border-top: 1px solid @color-border;
+  background: @color-bg-elevated;
+  margin-top: @space-7;
+}
+
+.grid {
+  max-width: @content-width;
+  margin: 0 auto;
+  padding: @space-6 @space-4 @space-4;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.4fr;
+  gap: @space-4;
+}
+
+.brand {
+  font-family: @font-display;
+  font-weight: 600;
+  color: @color-gold-bright;
+  margin-bottom: @space-2;
+}
+
+.tagline {
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: @space-2;
+  font-size: 0.9rem;
+
+  a {
+    color: @color-text-muted;
+  }
+
+  a:hover {
+    color: @color-gold-bright;
+  }
+}
+
+.columnTitle {
+  font-family: @font-display;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: @color-text-faint;
+}
+
+.credits {
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.legal {
+  max-width: @content-width;
+  margin: 0 auto;
+  padding: @space-4;
+  border-top: 1px solid @color-border;
+
+  p {
+    font-size: 0.8rem;
+    color: @color-text-faint;
+    max-width: 880px;
+  }
+}
+
+.copyright {
+  margin-bottom: 0;
+}
+
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

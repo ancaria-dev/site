@@ -1,0 +1,85 @@
+@import (reference) '../../styles/tokens.less';
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: fade(@color-bg, 88%);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid @color-border;
+}
+
+.bar {
+  max-width: @content-width;
+  margin: 0 auto;
+  padding: @space-3 @space-4;
+  display: flex;
+  align-items: center;
+  gap: @space-4;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: @space-2;
+  font-family: @font-display;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: @color-text;
+
+  &:hover {
+    text-decoration: none;
+    color: @color-gold-bright;
+  }
+}
+
+.brandRune {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  background: linear-gradient(160deg, @color-gold-bright, @color-crimson);
+}
+
+.nav {
+  display: flex;
+  gap: @space-4;
+  margin-left: @space-3;
+  flex: 1;
+}
+
+.link {
+  font-size: 0.92rem;
+  color: @color-text-muted;
+  padding: @space-1 0;
+  border-bottom: 2px solid transparent;
+
+  &:hover {
+    text-decoration: none;
+    color: @color-text;
+  }
+}
+
+.linkActive {
+  color: @color-gold-bright;
+  border-bottom-color: @color-gold;
+}
+
+.github {
+  color: @color-text-muted;
+  display: inline-flex;
+
+  &:hover {
+    color: @color-gold-bright;
+  }
+}
+
+@media (max-width: 640px) {
+  .nav {
+    gap: @space-3;
+    margin-left: 0;
+  }
+
+  .brandName {
+    display: none;
+  }
+}
