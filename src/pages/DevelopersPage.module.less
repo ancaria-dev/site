@@ -31,3 +31,50 @@
 .section > div {
   margin-bottom: @space-4;
 }
+
+.shots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: @space-3;
+  margin: 0 0 @space-4;
+}
+
+.shot,
+.shotWide {
+  margin: 0;
+  background: @color-bg-elevated;
+  border: 1px solid @color-border;
+  border-radius: @radius-md;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    display: block;
+  }
+
+  figcaption {
+    padding: @space-2 @space-3;
+    font-size: 0.8rem;
+    color: @color-text-muted;
+  }
+}
+
+.shot img {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.shotWide {
+  margin-bottom: @space-4;
+
+  img {
+    aspect-ratio: 900 / 220;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 640px) {
+  .shots {
+    grid-template-columns: 1fr;
+  }
+}
