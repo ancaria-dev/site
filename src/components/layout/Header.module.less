@@ -64,7 +64,25 @@
   border-bottom-color: @color-gold;
 }
 
+.download {
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 6px 14px;
+  border-radius: @radius-md;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: @color-bg;
+  background: linear-gradient(160deg, @color-gold-bright, @color-gold);
+
+  &:hover {
+    text-decoration: none;
+    color: @color-bg;
+    filter: brightness(1.05);
+  }
+}
+
 .github {
+  flex-shrink: 0;
   color: @color-text-muted;
   display: inline-flex;
 

@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import sacredLogo from '../../assets/sacred-logo.webp'
+import { useLatestRelease } from '../../hooks/useLatestRelease.ts'
 import { GitHubIcon } from '../shared/icons/GitHubIcon.tsx'
 import styles from './Header.module.less'
 
@@ -7,6 +8,8 @@ const navLinkClassName = ({ isActive }: { isActive: boolean }) =>
   isActive ? `${styles.link} ${styles.linkActive}` : styles.link
 
 export function Header() {
+  const release = useLatestRelease()
+
   return (
     <header className={styles.header}>
       <div className={styles.bar}>
@@ -32,6 +35,10 @@ export function Header() {
             How it works
           </NavLink>
         </nav>
+
+        <a className={styles.download} href={release.downloadUrl} target="_blank" rel="noreferrer">
+          Download
+        </a>
 
         <a
           className={styles.github}
