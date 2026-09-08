@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import sacredLogo from '../../assets/sacred-logo.webp'
 import { GitHubIcon } from '../shared/icons/GitHubIcon.tsx'
 import styles from './Header.module.less'
 
@@ -10,7 +11,7 @@ export function Header() {
     <header className={styles.header}>
       <div className={styles.bar}>
         <NavLink to="/" className={styles.brand}>
-          <span className={styles.brandRune} aria-hidden="true" />
+          <img className={styles.brandMark} src={sacredLogo} alt="" />
           <span className={styles.brandName}>Ancaria</span>
         </NavLink>
 
@@ -19,10 +20,16 @@ export function Header() {
             Home
           </NavLink>
           <NavLink to="/players" className={navLinkClassName}>
-            For Players
+            For players
+          </NavLink>
+          <NavLink to="/mods" className={navLinkClassName}>
+            Mods
           </NavLink>
           <NavLink to="/developers" className={navLinkClassName}>
-            For Developers
+            For developers
+          </NavLink>
+          <NavLink to="/how-it-works" className={navLinkClassName}>
+            How it works
           </NavLink>
         </nav>
 
