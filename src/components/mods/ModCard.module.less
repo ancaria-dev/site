@@ -1,0 +1,60 @@
+@import (reference) '../../styles/tokens.less';
+
+.card {
+  display: flex;
+  gap: @space-3;
+  background: @color-bg-elevated;
+  border: 1px solid @color-border;
+  border-radius: @radius-lg;
+  padding: @space-3;
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: @radius-md;
+  object-fit: cover;
+  background: @color-bg-panel;
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+}
+
+.heading {
+  display: flex;
+  align-items: baseline;
+  gap: @space-2;
+
+  h3 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+}
+
+.version {
+  font-family: @font-mono;
+  font-size: 0.78rem;
+  color: @color-text-faint;
+}
+
+.description {
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+}
+
+.authors {
+  margin: 0 0 @space-2;
+  font-size: 0.8rem;
+  color: @color-text-faint;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: @space-3;
+  margin-top: @space-2;
+}
