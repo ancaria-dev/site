@@ -1,0 +1,74 @@
+@import (reference) '../../styles/tokens.less';
+
+.panel {
+  background: @color-bg-elevated;
+  border: 1px solid @color-border;
+  border-radius: @radius-lg;
+  overflow: hidden;
+  box-shadow: @shadow-panel;
+}
+
+.chrome {
+  display: flex;
+  align-items: center;
+  gap: @space-2;
+  padding: @space-2 @space-3;
+  background: @color-bg-panel;
+  border-bottom: 1px solid @color-border;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+
+  &[data-tone='crimson'] {
+    background: @color-crimson-bright;
+  }
+
+  &[data-tone='gold'] {
+    background: @color-gold;
+  }
+
+  &[data-tone='muted'] {
+    background: @color-border-strong;
+  }
+}
+
+.title {
+  margin-left: @space-2;
+  font-family: @font-mono;
+  font-size: 0.8rem;
+  color: @color-text-faint;
+}
+
+.pre {
+  margin: 0;
+  padding: @space-3 0;
+  overflow-x: auto;
+  font-family: @font-mono;
+  font-size: 0.86rem;
+  line-height: 1.65;
+}
+
+.line {
+  display: table-row;
+}
+
+.lineNumber {
+  display: table-cell;
+  user-select: none;
+  text-align: right;
+  padding-right: @space-3;
+  padding-left: @space-3;
+  color: @color-text-faint;
+  opacity: 0.6;
+  width: 1%;
+  white-space: nowrap;
+}
+
+.lineContent {
+  display: table-cell;
+  padding-right: @space-3;
+  white-space: pre;
+}
