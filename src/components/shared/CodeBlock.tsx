@@ -1,4 +1,5 @@
 import { Highlight, type Language, type PrismTheme } from 'prism-react-renderer'
+import { useState } from 'react'
 import styles from './CodeBlock.module.less'
 
 const sacredTheme: PrismTheme = {
@@ -18,22 +19,74 @@ const sacredTheme: PrismTheme = {
   ],
 }
 
-type CodeBlockProps = {
+export type CodeTab = {
+  id: string
+  label: string
   code: string
-  language?: Language
-  title?: string
+  language: Language
 }
 
-export function CodeBlock({ code, language = 'kotlin', title }: CodeBlockProps) {
+type CodeBlockProps = {
+  code?: string
+  language?: Language
+  title?: string
+  tabs?: CodeTab[]
+  activeTabId?: string
+  onTabChange?: (id: string) => void
+}
+
+export function CodeBlock({
+  code,
+  language = 'kotlin',
+  title,
+  tabs,
+  activeTabId,
+  onTabChange,
+}: CodeBlockProps) {
+  const [internalTabId, setInternalTabId] = useState(tabs?.[0]?.id)
+  const active = tabs
+    ? (tabs.find((tab) => tab.id === (activeTabId ?? internalTabId)) ?? tabs[0])
+    : undefined
+
+  function selectTab(id: string) {
+    setInternalTabId(id)
+    onTabChange?.(id)
+  }
+
+  const shownCode = active ? active.code : (code ?? '')
+  const shownLanguage = active ? active.language : language
+
   return (
     <div className={styles.panel}>
       <div className={styles.chrome}>
         <span className={styles.dot} data-tone="crimson" />
         <span className={styles.dot} data-tone="gold" />
         <span className={styles.dot} data-tone="muted" />
-        {title && <span className={styles.title}>{title}</span>}
+        {tabs ? (
+          <div className={styles.tabs} role="tablist">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                role="tab"
+                aria-selected={tab.id === active?.id}
+                className={tab.id === active?.id ? `${styles.tab} ${styles.tabActive}` : styles.tab}
+                onClick={() => selectTab(tab.id)}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        ) : (
+          title && <span className={styles.title}>{title}</span>
+        )}
       </div>
-      <Highlight code={code.trim()} language={language} theme={sacredTheme}>
+      <Highlight
+        key={active?.id}
+        code={shownCode.trim()}
+        language={shownLanguage}
+        theme={sacredTheme}
+      >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={`${styles.pre} ${className}`} style={style}>
             <code>
