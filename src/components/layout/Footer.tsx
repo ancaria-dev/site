@@ -15,8 +15,10 @@ export function Footer() {
         <nav className={styles.column} aria-label="Site">
           <span className={styles.columnTitle}>Site</span>
           <Link to="/">Home</Link>
-          <Link to="/players">For Players</Link>
-          <Link to="/developers">For Developers</Link>
+          <Link to="/players">For players</Link>
+          <Link to="/mods">Mods</Link>
+          <Link to="/developers">For developers</Link>
+          <Link to="/how-it-works">How it works</Link>
         </nav>
 
         <nav className={styles.column} aria-label="Project">
@@ -58,12 +60,12 @@ export function Footer() {
 
       <div className={styles.legal}>
         <p>
-          Ancaria is an independent, fan-made proof of concept. It is not affiliated with, endorsed
+          Ancaria is an independent, fan-made proof of concept. It isn’t affiliated with, endorsed
           by, or connected to Ascaron Entertainment, THQ Nordic, or any rights holder of Sacred or
-          Sacred Gold. It requires a legally owned, installed copy of the game, provides no game
-          files, executables, or DRM circumvention, and touches nothing on disk -- hooks exist only
-          in the running process and disappear when it exits. It targets single-player use only and
-          offers no multiplayer or competitive-advantage functionality.
+          Sacred Gold. It requires a legally owned, installed copy of the game and ships no game
+          files, executables, or DRM circumvention. It touches nothing on disk: hooks exist only in
+          the running process and disappear when it exits. It targets single-player use only, with
+          no multiplayer and no competitive advantage.
         </p>
         <p className={styles.copyright}>
           &copy; {new Date().getFullYear()} MairwunNx. Code under the{' '}
