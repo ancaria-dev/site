@@ -1,0 +1,56 @@
+@import (reference) '../../styles/tokens.less';
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: @space-2;
+  padding: 12px 22px;
+  border-radius: @radius-md;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+
+  &:hover {
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+}
+
+.icon {
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+}
+
+.primary {
+  background: linear-gradient(160deg, @color-gold-bright, @color-gold);
+  color: @color-bg;
+  box-shadow: 0 10px 30px -10px fade(@color-gold, 55%);
+
+  &:hover {
+    color: @color-bg;
+  }
+}
+
+.secondary {
+  background: @color-bg-panel;
+  color: @color-text;
+  border-color: @color-border-strong;
+
+  &:hover {
+    color: @color-text;
+    border-color: @color-gold;
+  }
+}
+
+.ghost {
+  background: transparent;
+  color: @color-text-muted;
+  border-color: @color-border;
+
+  &:hover {
+    color: @color-text;
+    border-color: @color-border-strong;
+  }
+}
