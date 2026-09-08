@@ -1,0 +1,41 @@
+@import (reference) '../../styles/tokens.less';
+
+.panel {
+  background: @color-bg-elevated;
+  border: 1px solid @color-border;
+  border-radius: @radius-lg;
+  padding: @space-4 @space-5;
+}
+
+.badge {
+  display: inline-block;
+  font-family: @font-display;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 4px 12px;
+  margin-bottom: @space-3;
+}
+
+.body p:last-child {
+  margin-bottom: 0;
+}
+
+.crimson {
+  border-left: 3px solid @color-crimson-bright;
+
+  .badge {
+    color: @color-crimson-bright;
+    border: 1px solid fade(@color-crimson-bright, 50%);
+  }
+}
+
+.gold {
+  border-left: 3px solid @color-gold;
+
+  .badge {
+    color: @color-gold;
+    border: 1px solid fade(@color-gold, 50%);
+  }
+}
