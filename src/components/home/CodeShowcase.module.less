@@ -1,0 +1,23 @@
+@import (reference) '../../styles/tokens.less';
+
+.section {
+  max-width: @content-width;
+  margin: 0 auto;
+  padding: 0 @space-4 @space-7;
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: @space-5;
+  align-items: center;
+}
+
+.copy {
+  h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 860px) {
+  .section {
+    grid-template-columns: 1fr;
+  }
+}
