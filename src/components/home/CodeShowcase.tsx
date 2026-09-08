@@ -49,14 +49,14 @@ public final class ExperienceBoostMod implements SacredMod {
 `.trim()
 
 const damageCode = `
-package dev.ancaria.mod.softlanding
+package dev.ancaria.mod.godmod
 
 import dev.ancaria.coderpack.api.Context
 import dev.ancaria.coderpack.api.SacredMod
 import dev.ancaria.coderpack.api.Subscribe
 import dev.ancaria.coderpack.api.event.Damage
 
-class SoftLandingMod implements SacredMod {
+class GodMod implements SacredMod {
 
     @Override
     void onLoad(Context context) {
@@ -65,8 +65,8 @@ class SoftLandingMod implements SacredMod {
 
     @Subscribe
     void onDamage(Damage event) {
-        if (event.kind() == 'damage' && event.next() <= 0 && event.hp() > 1) {
-            event.next(1)
+        if (event.kind() == 'damage') {
+            event.cancel()
         }
     }
 }
@@ -93,12 +93,12 @@ const TABS: (CodeTab & { heading: string; description: string })[] = [
   },
   {
     id: 'groovy',
-    label: 'SoftLandingMod.groovy',
+    label: 'GodMod.groovy',
     heading: 'Groovy',
-    language: 'java',
+    language: 'groovy',
     code: damageCode,
     description:
-      'Groovy reads the same annotation and the same event classes. SoftLandingMod keeps a killing blow from dropping you below 1 HP.',
+      'Groovy reads the same annotation and the same event classes. GodMod cancels every hit before it lands, single-player god mode in six lines.',
   },
 ]
 
