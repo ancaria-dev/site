@@ -33,6 +33,16 @@ export function HowItWorksPage() {
             <code>System.out</code> corrupts the stream, which is why <code>context.log()</code>{' '}
             exists instead of the usual habit.
           </p>
+          <p>
+            The instinct behind all this, reach into a running program instead of touching its
+            files, owes something to{' '}
+            <a href="https://github.com/SpongePowered/Mixin" target="_blank" rel="noreferrer">
+              SpongePowered’s Mixin
+            </a>
+            , which rewrites JVM bytecode as classes load. Sacred Gold gives no such luxury: there’s
+            no JVM to weave into, so the same instinct lands on Frida patching x86 instructions in a
+            native process instead.
+          </p>
         </section>
 
         <section className={styles.section}>
