@@ -1,23 +1,26 @@
-import { latestRelease } from '../../data/release.ts'
+import { useLatestRelease } from '../../hooks/useLatestRelease.ts'
 import { Button } from '../shared/Button.tsx'
+import { HashReveal } from '../shared/HashReveal.tsx'
 import styles from './DownloadSection.module.less'
 
-const steps = [
-  {
-    title: 'Drop it in',
-    body: `Place ${latestRelease.fileName} in your Sacred Gold folder, next to the game executable.`,
-  },
-  {
-    title: 'Run the launcher',
-    body: 'It detects your game build, finds or fetches a JDK, and lists available mods.',
-  },
-  {
-    title: 'Press Play',
-    body: 'Tick the mods you want from the Available tab, then start the game as usual.',
-  },
-]
-
 export function DownloadSection() {
+  const release = useLatestRelease()
+
+  const steps = [
+    {
+      title: 'Drop it in',
+      body: `Place ${release.fileName} in your Sacred Gold folder, next to the game executable.`,
+    },
+    {
+      title: 'Run the launcher',
+      body: 'It detects your game build, finds or fetches a JDK, and lists available mods.',
+    },
+    {
+      title: 'Press play',
+      body: 'Tick the mods you want from the Available tab, then start the game as usual.',
+    },
+  ]
+
   return (
     <section id="download" className={styles.section}>
       <div className={styles.panel}>
@@ -27,13 +30,8 @@ export function DownloadSection() {
         </p>
 
         <div className={styles.actions}>
-          <Button
-            variant="primary"
-            href={latestRelease.downloadUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Download {latestRelease.fileName}
+          <Button variant="primary" href={release.downloadUrl} target="_blank" rel="noreferrer">
+            Download {release.fileName}
           </Button>
           <Button
             variant="ghost"
@@ -48,11 +46,17 @@ export function DownloadSection() {
         <dl className={styles.meta}>
           <div>
             <dt>Version</dt>
-            <dd>{latestRelease.version}</dd>
+            <dd>{release.version}</dd>
           </div>
           <div>
             <dt>SHA-256</dt>
-            <dd className={styles.hash}>{latestRelease.sha256}</dd>
+            {release.sha256 ? (
+              <dd>
+                <HashReveal value={release.sha256} label="" />
+              </dd>
+            ) : (
+              <dd className={styles.hashPending}>{release.loading ? 'Reading…' : 'Unavailable'}</dd>
+            )}
           </div>
         </dl>
 
