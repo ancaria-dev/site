@@ -16,6 +16,29 @@
   }
 }
 
+.wordSwap {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  color: @color-gold-bright;
+}
+
+.wordSwapInner {
+  display: inline-block;
+  animation: wordSwapIn 260ms ease;
+}
+
+@keyframes wordSwapIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 860px) {
   .section {
     grid-template-columns: 1fr;
