@@ -1,0 +1,73 @@
+@import (reference) './tokens.less';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: @color-bg;
+  background-image:
+    radial-gradient(ellipse 900px 500px at 15% -10%, fade(@color-crimson, 18%), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 100% 0%, fade(@color-gold, 10%), transparent 55%);
+  color: @color-text;
+  font-family: @font-body;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: @font-display;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 @space-3;
+  letter-spacing: 0.01em;
+}
+
+p {
+  margin: 0 0 @space-3;
+  line-height: 1.65;
+  color: @color-text-muted;
+}
+
+a {
+  color: @color-gold-bright;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+ul,
+ol {
+  color: @color-text-muted;
+  line-height: 1.65;
+}
+
+code {
+  font-family: @font-mono;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+}
+
+::selection {
+  background: fade(@color-gold, 35%);
+  color: @color-text;
+}
