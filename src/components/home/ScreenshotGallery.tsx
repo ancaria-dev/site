@@ -17,7 +17,7 @@ export function ScreenshotGallery() {
     <section className={styles.section}>
       <h2 className={styles.title}>See it running</h2>
       <p className={styles.subtitle}>
-        Placeholders for now -- real captures land here as the loader gets used.
+        Picking mods in the launcher, a mod reacting mid-run, and the tooling behind both.
       </p>
       <div className={styles.grid}>
         {screenshots.map((shot) => (

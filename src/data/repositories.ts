@@ -8,7 +8,7 @@ export const platformRepositories: RepositoryLink[] = [
   {
     name: 'mappings',
     description:
-      'The address registry for pureHD.exe 2.0.2.118 -- every VA, RVA, and confidence level.',
+      'The address registry for pureHD.exe 2.0.2.118: every VA, RVA, and confidence level.',
     url: 'https://github.com/ancaria-dev/mappings',
   },
   {
@@ -46,7 +46,7 @@ export const modAuthorRepositories: RepositoryLink[] = [
   },
   {
     name: 'launcher',
-    description: 'The Go executable players run -- useful context for how mods get loaded.',
+    description: 'The Go executable players run: useful context for how mods get loaded.',
     url: 'https://github.com/ancaria-dev/launcher',
   },
 ]
