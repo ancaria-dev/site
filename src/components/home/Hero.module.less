@@ -1,0 +1,39 @@
+@import (reference) '../../styles/tokens.less';
+
+.hero {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: @space-7 @space-4 @space-6;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-family: @font-display;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: @color-gold;
+  margin-bottom: @space-3;
+}
+
+.title {
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  background: linear-gradient(160deg, @color-text 20%, @color-gold-bright 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lede {
+  font-size: 1.1rem;
+  max-width: 620px;
+  margin: 0 auto @space-5;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: @space-3;
+}
