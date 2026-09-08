@@ -112,6 +112,9 @@ importers:
       prism-react-renderer:
         specifier: 2.4.1
         version: 2.4.1(react@19.2.8)
+      prismjs:
+        specifier: 1.30.0
+        version: 1.30.0
       react:
         specifier: 19.2.8
         version: 19.2.8
@@ -125,6 +128,9 @@ importers:
       '@biomejs/biome':
         specifier: 2.5.12
         version: 2.5.12
+      '@types/prismjs':
+        specifier: 1.26.6
+        version: 1.26.6
       '@types/react':
         specifier: 19.2.18
         version: 19.2.18
@@ -652,6 +658,10 @@ packages:
     peerDependencies:
       react: '>=16.0.0'
 
+  prismjs@1.30.0:
+    resolution: {integrity: sha512-DEvV2ZF2r2/63V+tK8hQvrR2ZGn10srHbXviTlcv7Kpzw8jWiNTqbVgjO3IY8RxrrOUF8VPMQQFysYYYv0YZxw==}
+    engines: {node: '>=6'}
+
   probe-image-size@7.4.0:
     resolution: {integrity: sha512-cdEprVtZxV+awMde9X+4jILBFYh4CARxVrQaMl4wY4YcPWbul9jntXrIW95NInBDyJwcVUP3U0T6yukN8rMBaQ==}
 
@@ -1088,6 +1098,8 @@ snapshots:
       '@types/prismjs': 1.26.6
       clsx: 2.1.1
       react: 19.2.8
+
+  prismjs@1.30.0: {}
 
   probe-image-size@7.4.0:
     dependencies:

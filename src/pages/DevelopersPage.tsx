@@ -46,7 +46,7 @@ sacred {
   {
     id: 'groovy-dsl',
     label: 'build.gradle',
-    language: 'java',
+    language: 'groovy',
     code: `
 plugins {
     id 'dev.ancaria.coderpack' version '0.99.0'
