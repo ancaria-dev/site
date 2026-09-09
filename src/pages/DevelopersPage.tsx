@@ -128,6 +128,15 @@ export function DevelopersPage() {
             around 1.8 MB, Groovy’s runtime pushes that to about 7.8 MB, and a Java mod stays close
             to 1.8 KB.
           </p>
+          <p>
+            A Kotlin project also gets <code>dev.ancaria.coderpack:api-kotlin</code>, the same
+            loader API said in Kotlin. The event becomes a type argument instead of a class literal,
+            and a field the API lets a listener rewrite becomes a <code>var</code>, so changing what
+            the game is about to store is one assignment. It adds nothing the Java API cannot do —
+            every declaration in it forwards to one — and deleting the dependency leaves a Kotlin
+            mod that still compiles. The Kotlin tab on the <Link to="/">front page</Link> is written
+            with it.
+          </p>
           <CodeBlock code={scaffoldSample} language="bash" title="terminal" />
           <p>Either build script fills in the same descriptor:</p>
           <CodeBlock tabs={gradleTabs} />
