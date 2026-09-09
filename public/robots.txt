@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://ancaria.dev/sitemap.xml

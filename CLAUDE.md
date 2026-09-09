@@ -37,7 +37,9 @@ Biome (no ESLint, no Prettier). Package manager is pnpm, pinned via
       styles/        tokens.less (design tokens) and global.less (reset and
                       base typography); everything else is a CSS module
       assets/screenshots/  Placeholder images; see below
-    public/          Static files served as-is: favicon, robots.txt, og-image
+    public/          Static files served as-is: the favicons, robots.txt,
+                      sitemap.xml, og-image.png
+    tools/           og.html and og.ps1, which render the social card
 
 ## Setup and commands
 
@@ -74,6 +76,17 @@ second Worker that no domain points at.
   (`launcher.webp`, `ingame.webp`, `idea.webp`, `console.webp`). Replace a
   file in place with a real capture of the same name; nothing else needs to
   change. `src/data/screenshots.ts` holds the captions.
+- `public/og-image.png` is generated, not drawn. `pwsh tools/og.ps1` screenshots
+  `tools/og.html` in headless Chrome at 1200x630, so the card carries the real
+  fonts and gradients. Edit the HTML and rerun the script; do not retouch the
+  PNG. The card is PNG rather than WebP because several social crawlers skip a
+  WebP image without reporting anything, and `og:image` in `index.html` is an
+  absolute URL for the same kind of reason: a crawler resolves a relative one
+  against its own host.
+- `public/favicon.png` and `public/favicon.ico` are copies of the launcher's
+  icon (`launcher/ui/web/icon.png` and `launcher/tools/rsrc/sacred.ico`), which
+  `launcher/tools/rsrc/icon.py` cuts from one source image. Replace them from
+  that script's output rather than resizing these by hand.
 - `src/data/release.ts` is hand-maintained placeholder data (version,
   file name, SHA-256, download URL) for the download section. There is no
   build-time or runtime fetch from GitHub -- this is a static site with no
