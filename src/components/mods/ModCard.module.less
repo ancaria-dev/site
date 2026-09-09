@@ -40,15 +40,28 @@
   color: @color-text-faint;
 }
 
+// Three lines, cut with an ellipsis. Clamping counts lines rather than pixels,
+// so the card still fits its own font size and line height instead of a height
+// picked here that would clip or gap the moment either changes.
 .description {
   margin: 4px 0 0;
   font-size: 0.9rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
 }
 
+// One line. `.body` carries min-width: 0, without which a long author list
+// would widen the card instead of being cut.
 .authors {
   margin: 0 0 @space-2;
   font-size: 0.8rem;
   color: @color-text-faint;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .actions {
@@ -57,4 +70,12 @@
   flex-wrap: wrap;
   gap: @space-3;
   margin-top: @space-2;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
 }

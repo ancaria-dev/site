@@ -1,6 +1,6 @@
 import { useLatestRelease } from '../../hooks/useLatestRelease.ts'
 import { Button } from '../shared/Button.tsx'
-import { HashReveal } from '../shared/HashReveal.tsx'
+import { RevealValue } from '../shared/RevealValue.tsx'
 import styles from './DownloadSection.module.less'
 
 export function DownloadSection() {
@@ -52,7 +52,7 @@ export function DownloadSection() {
             <dt>SHA-256</dt>
             {release.sha256 ? (
               <dd>
-                <HashReveal value={release.sha256} label="" />
+                <RevealValue value={release.sha256} />
               </dd>
             ) : (
               <dd className={styles.hashPending}>{release.loading ? 'Reading…' : 'Unavailable'}</dd>
