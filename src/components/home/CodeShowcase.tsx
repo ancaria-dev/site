@@ -6,20 +6,16 @@ const goldCode = `
 package dev.ancaria.mod.goldrush
 
 import dev.ancaria.coderpack.api.Context
-import dev.ancaria.coderpack.api.SacredMod
-import dev.ancaria.coderpack.api.Subscribe
 import dev.ancaria.coderpack.api.event.Gold
+import dev.ancaria.coderpack.ktx.SacredMod
+import dev.ancaria.coderpack.ktx.delta
+import dev.ancaria.coderpack.ktx.on
 
-class GoldRushMod : SacredMod {
+class GoldRushMod : SacredMod() {
 
-    override fun onLoad(context: Context) {
-        context.events().register(this)
-    }
-
-    @Subscribe
-    fun onGold(event: Gold) {
-        if (event.delta() > 0) {
-            event.delta(event.delta() * 3 / 2)
+    override fun Context.load() {
+        on<Gold> {
+            if (it.delta > 0) it.delta = it.delta * 3 / 2
         }
     }
 }
@@ -80,7 +76,7 @@ const TABS: (CodeTab & { heading: string; description: string })[] = [
     language: 'kotlin',
     code: goldCode,
     description:
-      'Subscribe to an event, react to it, done. GoldRushMod listens for gold changing hands and tops up every gain by half again.',
+      'Subscribe to an event, react to it, done. GoldRushMod tops up every gold gain by half again. The Kotlin module turns the event into a type argument and the field the game is about to write into a var, so the whole rewrite is one assignment.',
   },
   {
     id: 'java',
