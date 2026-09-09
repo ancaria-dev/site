@@ -32,7 +32,7 @@ function detailFor(error: unknown): string | undefined {
   }
 
   if (error instanceof Error) {
-    // A production stack is minified noise; the message survives the build and
+    // A production stack is minified noise. The message survives the build and
     // is the part worth pasting into an issue.
     return import.meta.env.DEV && error.stack ? error.stack : error.message
   }

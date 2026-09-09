@@ -26,7 +26,7 @@ export function ErrorScreen({ kicker, title, description, detail, onRetry }: Err
       setCopied(true)
       setTimeout(() => setCopied(false), 1800)
     } catch {
-      // Clipboard access can be denied by the browser; the report text stays
+      // Clipboard access can be denied by the browser. The report text stays
       // selectable in the block above.
     }
   }

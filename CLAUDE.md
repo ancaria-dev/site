@@ -12,7 +12,7 @@ The site is a proof-of-concept pitch for a proof-of-concept loader. Its job is
 to explain what Ancaria is, show it (with placeholder screenshots until real
 ones exist), and get a player to the launcher download or a developer to the
 component repositories. It is not the place to duplicate documentation that
-already lives in a component repository's README -- link to it instead.
+already lives in a component repository's README, so link to it instead.
 
 ## Stack
 
@@ -29,7 +29,7 @@ Biome (no ESLint, no Prettier). Package manager is pnpm, pinned via
         layout/     Header, Footer, and the route Layout that wraps them
         home/        Sections used only on the landing page
         shared/      Button, Callout, CodeBlock, PageHeader, RepositoryGrid,
-                      icons -- anything used by more than one page
+                      icons, anything used by more than one page
       pages/         One component per route: Home, Players, Developers, 404,
                       and ErrorPage, the router error element
       data/          Plain data consumed by components: release info,
@@ -53,8 +53,8 @@ pnpm lint      # biome check .
 pnpm lint:fix  # biome check --write .
 ```
 
-CI (`.github/workflows/build.yml`) installs, lints, builds, and -- on
-`master` only -- runs `wrangler deploy`, which uploads `dist/` to the
+CI (`.github/workflows/build.yml`) installs, lints, builds, and on
+`master` only runs `wrangler deploy`, which uploads `dist/` to the
 assets-only Worker declared in `wrangler.jsonc`. Cloudflare runs no build
 step of its own; what ships is exactly what CI built and linted. This needs
 `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` configured as repository
@@ -89,7 +89,7 @@ second Worker that no domain points at.
   that script's output rather than resizing these by hand.
 - `src/data/release.ts` is hand-maintained placeholder data (version,
   file name, SHA-256, download URL) for the download section. There is no
-  build-time or runtime fetch from GitHub -- this is a static site with no
+  build-time or runtime fetch from GitHub: this is a static site with no
   backend. Update it by hand when `launcher` publishes a release worth
   pointing at.
 - Never state or imply that this project is affiliated with, endorsed by, or
@@ -112,7 +112,7 @@ second Worker that no domain points at.
   rendering the shell again would only throw again. `AppErrorBoundary` in
   `main.tsx` sits above `RouterProvider` for a failure in the router itself.
   All three render `shared/ErrorScreen`, which uses no router hooks and plain
-  `<a>` links on purpose -- it has to survive a broken router.
+  `<a>` links on purpose: it has to survive a broken router.
 - This is the one repository in the workspace with no sibling checkout
   dependency and no generated address table or API jar to keep in sync.
   Nothing here reads `../mappings`, `../coderpack`, or any other sibling.

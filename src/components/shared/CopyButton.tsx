@@ -17,7 +17,7 @@ export function CopyButton({ value, children }: CopyButtonProps) {
       setCopied(true)
       setTimeout(() => setCopied(false), 1800)
     } catch {
-      // Clipboard access can be denied by the browser; the value is still
+      // Clipboard access can be denied by the browser. The value is still
       // visible in the button for a manual copy.
     }
   }
