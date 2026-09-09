@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
+import { AppErrorBoundary } from './components/shared/AppErrorBoundary.tsx'
 import './lib/prismLanguages.ts'
 import { router } from './router.tsx'
 import './styles/global.less'
@@ -12,6 +13,8 @@ if (!container) {
 
 createRoot(container).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AppErrorBoundary>
+      <RouterProvider router={router} />
+    </AppErrorBoundary>
   </StrictMode>,
 )

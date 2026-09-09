@@ -30,7 +30,8 @@ Biome (no ESLint, no Prettier). Package manager is pnpm, pinned via
         home/        Sections used only on the landing page
         shared/      Button, Callout, CodeBlock, PageHeader, RepositoryGrid,
                       icons -- anything used by more than one page
-      pages/         One component per route: Home, Players, Developers, 404
+      pages/         One component per route: Home, Players, Developers, 404,
+                      and ErrorPage, the router error element
       data/          Plain data consumed by components: release info,
                       screenshot captions, component repository links
       styles/        tokens.less (design tokens) and global.less (reset and
@@ -87,6 +88,14 @@ actually deploy.
 
 ## Gotchas
 
+- Errors are caught at three levels, and each one exists because the level
+  below it cannot help. Every page route has an `errorElement`, so a page that
+  throws is replaced while the header and footer keep working. The layout route
+  has one too, for the case where the header or footer is what threw and
+  rendering the shell again would only throw again. `AppErrorBoundary` in
+  `main.tsx` sits above `RouterProvider` for a failure in the router itself.
+  All three render `shared/ErrorScreen`, which uses no router hooks and plain
+  `<a>` links on purpose -- it has to survive a broken router.
 - This is the one repository in the workspace with no sibling checkout
   dependency and no generated address table or API jar to keep in sync.
   Nothing here reads `../mappings`, `../coderpack`, or any other sibling.
