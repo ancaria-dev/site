@@ -5,6 +5,7 @@
   align-items: baseline;
   gap: 6px;
   min-width: 0;
+  max-width: 100%;
   background: none;
   border: none;
   padding: 0;
@@ -23,6 +24,8 @@
 }
 
 .label {
+  flex-shrink: 0;
+  white-space: nowrap;
   font-size: 0.72rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -30,6 +33,7 @@
 }
 
 .value {
+  min-width: 0;
   font-size: 0.85rem;
   color: @color-text-muted;
   word-break: break-all;
@@ -38,4 +42,14 @@
 
 .truncated {
   border-bottom: 1px dotted @color-border-strong;
+}
+
+// break-all is what lets an expanded hash wrap inside the card, and it would
+// just as happily break a collapsed file name across two lines. Collapsed text
+// is short by construction, so it is pinned to one line and clipped if the
+// card is narrower than even that.
+.oneLine {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

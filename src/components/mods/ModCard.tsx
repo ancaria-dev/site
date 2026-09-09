@@ -10,12 +10,6 @@ type ModCardProps = {
   rawBase: string
 }
 
-// Keep the head and the extension. Mod file names share a prefix as often as a
-// suffix, so trimming one end alone can leave two cards showing the same text.
-function collapseFileName(file: string) {
-  return file.length <= 28 ? file : `${file.slice(0, 14)}…${file.slice(-10)}`
-}
-
 export function ModCard({ mod, rawBase }: ModCardProps) {
   const [iconSrc, setIconSrc] = useState(mod.icon ? `${rawBase}${mod.icon}` : sacredFallback)
 
@@ -56,11 +50,7 @@ export function ModCard({ mod, rawBase }: ModCardProps) {
             Download
           </Button>
           <div className={styles.meta}>
-            <RevealValue
-              label="File name"
-              value={mod.file}
-              collapsed={collapseFileName(mod.file)}
-            />
+            <RevealValue label="File name" value={mod.file} clamp />
             <RevealValue label="SHA-256" value={mod.sha256} />
           </div>
         </div>
