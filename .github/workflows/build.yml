@@ -12,12 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      # Corepack goes first on purpose. setup-node v5 caches by default and
+      # reads packageManager from package.json to decide how, so it fails on
+      # "Unable to locate executable file: pnpm" if pnpm is enabled after it.
+      - name: Enable pnpm via Corepack
+        run: corepack enable
+
       - uses: actions/setup-node@v5
         with:
           node-version: '24'
-
-      - name: Enable pnpm via Corepack
-        run: corepack enable
+          cache: pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
