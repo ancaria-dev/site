@@ -1,0 +1,13 @@
+{
+  // An assets-only Worker: no script, just dist/ served from Cloudflare's
+  // edge. The name has to match the Worker that already owns ancaria.dev.
+  "name": "ancaria-site",
+  "compatibility_date": "2026-09-09",
+  "assets": {
+    "directory": "./dist",
+    // Anything that is not a built file gets index.html with a 200, which is
+    // what keeps /players and /mods working on a hard refresh. This replaces
+    // the _redirects file Pages needed for the same job.
+    "not_found_handling": "single-page-application"
+  }
+}

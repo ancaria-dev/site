@@ -37,8 +37,7 @@ Biome (no ESLint, no Prettier). Package manager is pnpm, pinned via
       styles/        tokens.less (design tokens) and global.less (reset and
                       base typography); everything else is a CSS module
       assets/screenshots/  Placeholder images; see below
-    public/          Static files served as-is: favicon, robots.txt,
-                      _redirects (Cloudflare Pages SPA fallback), og-image
+    public/          Static files served as-is: favicon, robots.txt, og-image
 
 ## Setup and commands
 
@@ -53,11 +52,16 @@ pnpm lint:fix  # biome check --write .
 ```
 
 CI (`.github/workflows/build.yml`) installs, lints, builds, and -- on
-`master` only -- deploys `dist/` to Cloudflare Pages by direct upload with
-`wrangler`. Cloudflare Pages' own build step is not used; what ships is
-exactly what CI built and linted. This needs `CLOUDFLARE_API_TOKEN` and
-`CLOUDFLARE_ACCOUNT_ID` configured as repository secrets before it can
-actually deploy.
+`master` only -- runs `wrangler deploy`, which uploads `dist/` to the
+assets-only Worker declared in `wrangler.jsonc`. Cloudflare runs no build
+step of its own; what ships is exactly what CI built and linted. This needs
+`CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` configured as repository
+secrets before it can actually deploy.
+
+The site is a Worker with static assets, not a Pages project. The Worker is
+named `ancaria-site` and owns the `ancaria.dev` route; the name in
+`wrangler.jsonc` has to keep matching it, because a different name deploys a
+second Worker that no domain points at.
 
 ## Content rules
 
@@ -84,7 +88,7 @@ actually deploy.
   CLAUDE.md and is a hard project boundary, not house style.
 - Do not invent a production domain for the site in copy or metadata. Link to
   GitHub (`github.com/ancaria-dev/...`) for anything that needs a concrete
-  URL until a real Cloudflare Pages domain exists.
+  URL until the production domain is actually serving the site.
 
 ## Gotchas
 
@@ -102,6 +106,8 @@ actually deploy.
 - `*.module.less` files import `tokens.less` with `@import (reference)`, not
   a plain `@import`. A plain import would emit the token file's own rules
   (there are none, but keep the pattern) into every module that imports it.
-- `public/_redirects` is what makes client-side routing work on Cloudflare
-  Pages. Deleting it turns every route but `/` into a 404 from the edge
-  before React Router ever runs.
+- `not_found_handling: "single-page-application"` in `wrangler.jsonc` is what
+  makes client-side routing work. Without it every route but `/` is a 404 from
+  the edge before React Router ever runs. Pages needed a `public/_redirects`
+  file for this; a Worker does not, and its `_redirects` support has no
+  equivalent of the `200` rewrite that file used.
