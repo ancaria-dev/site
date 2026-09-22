@@ -25,7 +25,7 @@ const gradleTabs: CodeTab[] = [
     language: 'kotlin',
     code: `
 plugins {
-    id("dev.ancaria.coderpack") version "0.99.0"
+    id("dev.ancaria.coderpack") version "0.101.0"
 }
 
 version = "1.0.0"
@@ -38,7 +38,7 @@ sacred {
     author("MairwunNx (Pavel Erokhin)")
     website = "https://ancaria.dev"
     repository = "https://github.com/me/gold-rush"
-    apiVersion = "0.99.0"
+    apiVersion = "0.102.0"
     installTo = layout.dir(providers.gradleProperty("sacredDir").map { file("$it/mods") })
 }
 `.trim(),
@@ -49,7 +49,7 @@ sacred {
     language: 'groovy',
     code: `
 plugins {
-    id 'dev.ancaria.coderpack' version '0.99.0'
+    id 'dev.ancaria.coderpack' version '0.101.0'
 }
 
 version = '1.0.0'
@@ -62,7 +62,7 @@ sacred {
     author('MairwunNx (Pavel Erokhin)')
     website = 'https://ancaria.dev'
     repository = 'https://github.com/me/gold-rush'
-    apiVersion = '0.99.0'
+    apiVersion = '0.102.0'
     installTo = layout.dir(providers.gradleProperty('sacredDir').map { file("$it/mods") })
 }
 `.trim(),
@@ -131,11 +131,12 @@ export function DevelopersPage() {
           <p>
             A Kotlin project also gets <code>dev.ancaria.coderpack:api-kotlin</code>, the same
             loader API said in Kotlin. The event becomes a type argument instead of a class literal,
-            and a field the API lets a listener rewrite becomes a <code>var</code>, so changing what
-            the game is about to store is one assignment. It adds nothing the Java API cannot do —
-            every declaration in it forwards to one — and deleting the dependency leaves a Kotlin
-            mod that still compiles. The Kotlin tab on the <Link to="/">front page</Link> is written
-            with it.
+            a getter becomes a property, and one <code>on</code> covers both watching and deciding:
+            a listener that wants to change what the game is about to store says so with{' '}
+            <code>mutate</code>, which only compiles for an event that can be decided. It adds
+            nothing the Java API cannot do — every declaration in it forwards to one — so a Kotlin
+            mod can drop the dependency and call the Java API directly. The Kotlin tab on the{' '}
+            <Link to="/">front page</Link> is written with it.
           </p>
           <CodeBlock code={scaffoldSample} language="bash" title="terminal" />
           <p>Either build script fills in the same descriptor:</p>
