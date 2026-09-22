@@ -8,14 +8,15 @@ package dev.ancaria.mod.goldrush
 import dev.ancaria.coderpack.api.Context
 import dev.ancaria.coderpack.api.event.Gold
 import dev.ancaria.coderpack.ktx.SacredMod
-import dev.ancaria.coderpack.ktx.delta
+import dev.ancaria.coderpack.ktx.mutate
 import dev.ancaria.coderpack.ktx.on
+import dev.ancaria.coderpack.ktx.value
 
 class GoldRushMod : SacredMod() {
 
     override fun Context.load() {
         on<Gold> {
-            if (it.delta > 0) it.delta = it.delta * 3 / 2
+            if (it.value > 0) mutate { Gold.Mutation.change(it.value * 3 / 2) }
         }
     }
 }
@@ -37,9 +38,9 @@ public final class ExperienceBoostMod implements SacredMod {
     }
 
     @Subscribe
-    public void onExperience(Experience event) {
+    public Experience.Mutation onExperience(Experience event) {
         long bonus = event.gain() * 20 / 100;
-        event.next(event.next() + bonus);
+        return Experience.Mutation.change(event.value() + bonus);
     }
 }
 `.trim()
@@ -60,10 +61,8 @@ class GodMod implements SacredMod {
     }
 
     @Subscribe
-    void onDamage(Damage event) {
-        if (event.kind() == 'damage') {
-            event.cancel()
-        }
+    Damage.Mutation onDamage(Damage event) {
+        event.kind() == 'damage' ? Damage.Mutation.veto() : Damage.Mutation.none()
     }
 }
 `.trim()
@@ -76,7 +75,7 @@ const TABS: (CodeTab & { heading: string; description: string })[] = [
     language: 'kotlin',
     code: goldCode,
     description:
-      'Subscribe to an event, react to it, done. GoldRushMod tops up every gold gain by half again. The Kotlin module turns the event into a type argument and the field the game is about to write into a var, so the whole rewrite is one assignment.',
+      'Subscribe to an event, react to it, done. GoldRushMod tops up every gold gain by half again. The Kotlin module turns the event into a type argument, and mutate hands the new delta back to the game, so the whole decision is one line.',
   },
   {
     id: 'java',
@@ -85,7 +84,7 @@ const TABS: (CodeTab & { heading: string; description: string })[] = [
     language: 'java',
     code: experienceCode,
     description:
-      'The same event bus from Java, no wrapper needed. ExperienceBoostMod adds a flat 20% on top of every experience gain.',
+      'The same event bus from Java, no wrapper needed. ExperienceBoostMod adds a flat 20% on top of every experience gain by returning the new total as a mutation.',
   },
   {
     id: 'groovy',
@@ -94,7 +93,7 @@ const TABS: (CodeTab & { heading: string; description: string })[] = [
     language: 'groovy',
     code: damageCode,
     description:
-      'Groovy reads the same annotation and the same event classes. GodMod cancels every hit before it lands, single-player god mode in six lines.',
+      'Groovy reads the same annotation and the same event classes. GodMod vetoes every hit before it lands, single-player god mode in a handful of lines.',
   },
 ]
 
