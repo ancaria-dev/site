@@ -24,14 +24,14 @@ export function HowItWorksPage() {
             A 64-bit JVM can’t load into a 32-bit process, so mods never run inside the game at all.
             A Rust host starts a JVM beside Sacred Gold and injects a Frida agent into the game
             itself. From there, three pieces talk in a strict line: the agent hooks x86 instructions
-            and exchanges Frida messages with the host, while the host and the JVM exchange
-            newline-terminated UTF-8 frames over the JVM’s own stdin and stdout. The agent never
-            talks to the JVM directly.
+            and passes what it sees to the host, and the host hands it on to the JVM as short text
+            frames over a pair of named pipes reserved for that. The agent never talks to the JVM
+            directly.
           </p>
           <p>
-            stdout carries only protocol frames on that pipe. A mod that prints with{' '}
-            <code>System.out</code> corrupts the stream, which is why <code>context.log()</code>{' '}
-            exists instead of the usual habit.
+            Because the frames have a channel of their own, a mod can’t break it by printing.{' '}
+            <code>System.out</code> still works and ends up in the host console, but{' '}
+            <code>context.log()</code> is the better habit: it tags every line with the mod’s id.
           </p>
           <p>
             The instinct behind all this, reach into a running program instead of touching its
@@ -48,7 +48,7 @@ export function HowItWorksPage() {
         <section className={styles.section}>
           <h2>What crosses the wire</h2>
           <p>
-            Six frame types cover everything. <code>EVT</code> reports something that already
+            Seven frame types cover everything. <code>EVT</code> reports something that already
             happened and expects no reply: a level-up, a death, gold changing hands.{' '}
             <code>ASK</code> comes from a hook placed before the game commits a write, and it means
             the game thread is paused, waiting. <code>END</code> is the answer to an{' '}
