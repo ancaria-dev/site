@@ -81,6 +81,17 @@ export function DevelopersPage() {
         <section className={styles.section}>
           <h2>With the IntelliJ IDEA plugin</h2>
           <p>
+            Install{' '}
+            <a
+              href="https://plugins.jetbrains.com/plugin/34165-sacred-mod-development"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Sacred Mod Development
+            </a>{' '}
+            from the JetBrains Marketplace, or find it by name under Settings → Plugins.
+          </p>
+          <p>
             The fastest way in: File → New → Project → Sacred Mod. The wizard asks for a name, a
             description, a template (a bare entrypoint, or one with a working listener already wired
             up), which of Java, Kotlin, or Groovy to write the mod in, and whether the build script
