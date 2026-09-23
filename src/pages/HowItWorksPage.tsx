@@ -31,7 +31,8 @@ export function HowItWorksPage() {
           <p>
             Because the frames have a channel of their own, a mod can’t break it by printing.{' '}
             <code>System.out</code> still works and ends up in the host console, but{' '}
-            <code>context.log()</code> is the better habit: it tags every line with the mod’s id.
+            <code>getContext().log()</code> is the better habit: it tags every line with the mod’s
+            id and appends it to <code>logs/mods.log</code> in the game folder.
           </p>
           <p>
             The instinct behind all this, reach into a running program instead of touching its
@@ -84,8 +85,8 @@ export function HowItWorksPage() {
           <p>
             An event is read-only. A listener that wants to change the outcome returns a mutation: a
             new value, a veto, a reset back to the game’s own number, or nothing. The loader folds
-            each answer in before the next listener runs, so <code>value()</code> always reads the
-            result so far, and two mods that double the same gain compose into four times.
+            each answer in before the next listener runs, so <code>getValue()</code> always reads
+            the result so far, and two mods that double the same gain compose into four times.
           </p>
           <p>
             Listeners run in a fixed order: <code>FIRST</code>, then <code>NORMAL</code>, then{' '}
