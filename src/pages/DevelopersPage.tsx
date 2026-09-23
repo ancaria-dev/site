@@ -25,7 +25,7 @@ const gradleTabs: CodeTab[] = [
     language: 'kotlin',
     code: `
 plugins {
-    id("dev.ancaria.coderpack") version "0.101.0"
+    id("dev.ancaria.coderpack") version "0.200.0"
 }
 
 version = "1.0.0"
@@ -38,7 +38,7 @@ sacred {
     author("MairwunNx (Pavel Erokhin)")
     website = "https://ancaria.dev"
     repository = "https://github.com/me/gold-rush"
-    apiVersion = "0.102.0"
+    apiVersion = "0.200.0"
     installTo = layout.dir(providers.gradleProperty("sacredDir").map { file("$it/mods") })
 }
 `.trim(),
@@ -49,7 +49,7 @@ sacred {
     language: 'groovy',
     code: `
 plugins {
-    id 'dev.ancaria.coderpack' version '0.101.0'
+    id 'dev.ancaria.coderpack' version '0.200.0'
 }
 
 version = '1.0.0'
@@ -62,7 +62,7 @@ sacred {
     author('MairwunNx (Pavel Erokhin)')
     website = 'https://ancaria.dev'
     repository = 'https://github.com/me/gold-rush'
-    apiVersion = '0.102.0'
+    apiVersion = '0.200.0'
     installTo = layout.dir(providers.gradleProperty('sacredDir').map { file("$it/mods") })
 }
 `.trim(),
