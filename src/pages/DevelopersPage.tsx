@@ -6,6 +6,7 @@ import ideaWizard from '../assets/screenshots/idea-wizard.webp'
 import { CodeBlock, type CodeTab } from '../components/shared/CodeBlock.tsx'
 import { PageHeader } from '../components/shared/PageHeader.tsx'
 import { RepositoryGrid } from '../components/shared/RepositoryGrid.tsx'
+import { coveredEvents } from '../data/events.ts'
 import { modAuthorRepositories, platformRepositories } from '../data/repositories.ts'
 import styles from './DevelopersPage.module.less'
 
@@ -153,6 +154,56 @@ export function DevelopersPage() {
           <p>Either build script fills in the same descriptor:</p>
           <CodeBlock tabs={gradleTabs} />
           <RepositoryGrid repositories={modAuthorRepositories} />
+        </section>
+
+        <section className={styles.section}>
+          <h2>Covered Events</h2>
+          <p>
+            Every event a mod can subscribe to in API 3. A mutable event is asked before the game
+            commits the write, so a listener can return that event’s <code>Mutation</code> to veto
+            it or change what gets stored. Everything else reports what already happened.
+          </p>
+          <div className={styles.tableWrap}>
+            <table className={styles.events}>
+              <thead>
+                <tr>
+                  <th scope="col">Event</th>
+                  <th scope="col">Game action</th>
+                  <th scope="col">Mutable</th>
+                  <th scope="col">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                {coveredEvents.map((event) => (
+                  <tr key={event.name}>
+                    <th scope="row">
+                      <code>{event.name}</code>
+                    </th>
+                    <td>{event.action}</td>
+                    <td className={event.decides ? styles.mutable : styles.readOnly}>
+                      {event.decides ? `Yes: ${event.decides}` : 'No'}
+                    </td>
+                    <td>{event.description}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p>
+            A wire event no class covers yet arrives as <code>Unknown</code>, with its wire name and
+            raw fields, so a tracer that subscribes to <code>Event</code> still sees it. The full
+            contract is in{' '}
+            <a
+              href="https://github.com/ancaria-dev/coderpack/blob/master/docs/EVENTS.md"
+              target="_blank"
+              rel="noreferrer"
+            >
+              coderpack’s EVENTS.md
+            </a>
+            . For anything that is not an event, <code>getContext().getGame()</code> acts on the
+            game directly: <code>getWorld().getEntityRegistry().getPlayer()</code> is the hero, and{' '}
+            <code>getConsole().print("...")</code> writes a line to the in-game console.
+          </p>
         </section>
 
         <section className={styles.section}>
