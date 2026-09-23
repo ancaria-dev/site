@@ -54,8 +54,8 @@ pnpm lint:fix  # biome check --write .
 ```
 
 CI (`.github/workflows/build.yml`) installs, lints, builds, and on
-`master` only runs `wrangler deploy`, which uploads `dist/` to the
-assets-only Worker declared in `wrangler.jsonc`. Cloudflare runs no build
+`master` only runs `wrangler deploy`, which uploads `dist/` and the small
+script in `worker/` to the Worker declared in `wrangler.jsonc`. Cloudflare runs no build
 step of its own; what ships is exactly what CI built and linted. This needs
 `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` configured as repository
 secrets before it can actually deploy.
@@ -64,6 +64,20 @@ The site is a Worker with static assets, not a Pages project. The Worker is
 named `ancaria-site` and owns the `ancaria.dev` route; the name in
 `wrangler.jsonc` has to keep matching it, because a different name deploys a
 second Worker that no domain points at.
+
+The script answers `/files/*` and nothing else (`run_worker_first`), out of
+the R2 bucket `ancaria-files` bound as `FILES`. That is where downloads live
+that must not be committed to git, starting with `sacred.purehd.zip`, which
+the launcher fetches and pins by SHA-256. Keys are flat names only. Nothing in
+CI uploads to the bucket; a file goes in by hand:
+
+```
+npx wrangler r2 object put ancaria-files/sacred.purehd.zip --file sacred.purehd.zip --content-type application/zip --remote
+```
+
+Replacing that archive under the same name breaks every released launcher,
+because its digest no longer matches. A new archive needs a launcher release
+that raises `purehd.Checksum` and `purehd.Size`.
 
 ## Content rules
 
