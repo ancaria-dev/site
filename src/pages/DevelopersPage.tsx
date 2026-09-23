@@ -225,6 +225,15 @@ export function DevelopersPage() {
             from <code>research</code> into <code>mappings</code> as a VA, an RVA, and a confidence
             level: shipping code never hard-codes an address directly.
           </p>
+          <p>
+            Why <code>pureHD.exe</code> 2.0.2.118 and not the stock <code>Sacred.exe</code>: the
+            community pureHD mod fixes a long list of the original game’s bugs, leaves the balance
+            alone, keeps the feel of Sacred as it was, and only adds things that are genuinely
+            useful. That makes it the one build worth pinning every address to. A player whose
+            folder has another build is told so by the launcher, which can fetch this one from{' '}
+            <code>ancaria.dev/files/sacred.purehd.zip</code> and place <code>pureHD.exe</code> and{' '}
+            <code>pHD.dll</code> next to the game without touching the original executable.
+          </p>
           <RepositoryGrid repositories={platformRepositories} />
         </section>
       </div>
