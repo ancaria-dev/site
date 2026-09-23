@@ -142,12 +142,12 @@ export function DevelopersPage() {
           <p>
             A Kotlin project also gets <code>dev.ancaria.coderpack:api-kotlin</code>, the same
             loader API said in Kotlin. The event becomes a type argument instead of a class literal,
-            a getter becomes a property, and one <code>on</code> covers both watching and deciding:
-            a listener that wants to change what the game is about to store says so with{' '}
-            <code>mutate</code>, which only compiles for an event that can be decided. It adds
-            nothing the Java API cannot do — every declaration in it forwards to one — so a Kotlin
-            mod can drop the dependency and call the Java API directly. The Kotlin tab on the{' '}
-            <Link to="/">front page</Link> is written with it.
+            and one <code>on</code> covers both watching and deciding: a listener that wants to
+            change what the game is about to store says so with <code>mutate</code>, which only
+            compiles for an event that can be decided. It adds nothing the Java API cannot do —
+            every declaration in it forwards to one — so a Kotlin mod can drop the dependency and
+            call the Java API directly. The Kotlin tab on the <Link to="/">front page</Link> is
+            written with it.
           </p>
           <CodeBlock code={scaffoldSample} language="bash" title="terminal" />
           <p>Either build script fills in the same descriptor:</p>
