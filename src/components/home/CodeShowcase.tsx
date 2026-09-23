@@ -5,18 +5,16 @@ import styles from './CodeShowcase.module.less'
 const goldCode = `
 package dev.ancaria.mod.goldrush
 
-import dev.ancaria.coderpack.api.Context
+import dev.ancaria.coderpack.api.SacredMod
 import dev.ancaria.coderpack.api.event.Gold
-import dev.ancaria.coderpack.ktx.SacredMod
 import dev.ancaria.coderpack.ktx.mutate
 import dev.ancaria.coderpack.ktx.on
-import dev.ancaria.coderpack.ktx.value
 
 class GoldRushMod : SacredMod() {
 
-    override fun Context.load() {
-        on<Gold> {
-            if (it.value > 0) mutate { Gold.Mutation.change(it.value * 3 / 2) }
+    override fun onLoad() {
+        context.on<Gold> {
+            if (!it.isSpending) mutate { Gold.Mutation.change(it.value * 3 / 2) }
         }
     }
 }
@@ -25,22 +23,21 @@ class GoldRushMod : SacredMod() {
 const experienceCode = `
 package dev.ancaria.mod.expboost;
 
-import dev.ancaria.coderpack.api.Context;
 import dev.ancaria.coderpack.api.SacredMod;
 import dev.ancaria.coderpack.api.Subscribe;
 import dev.ancaria.coderpack.api.event.Experience;
 
-public final class ExperienceBoostMod implements SacredMod {
+public final class ExperienceBoostMod extends SacredMod {
 
     @Override
-    public void onLoad(Context context) {
-        context.events().register(this);
+    public void onLoad() {
+        getContext().getRegistry().getEventRegistry().register(this);
     }
 
     @Subscribe
     public Experience.Mutation onExperience(Experience event) {
-        long bonus = event.gain() * 20 / 100;
-        return Experience.Mutation.change(event.value() + bonus);
+        long bonus = event.getGain() * 20 / 100;
+        return Experience.Mutation.change(event.getValue() + bonus);
     }
 }
 `.trim()
@@ -48,21 +45,20 @@ public final class ExperienceBoostMod implements SacredMod {
 const damageCode = `
 package dev.ancaria.mod.godmod
 
-import dev.ancaria.coderpack.api.Context
 import dev.ancaria.coderpack.api.SacredMod
 import dev.ancaria.coderpack.api.Subscribe
 import dev.ancaria.coderpack.api.event.Damage
 
-class GodMod implements SacredMod {
+class GodMod extends SacredMod {
 
     @Override
-    void onLoad(Context context) {
-        context.events().register(this)
+    void onLoad() {
+        context.registry.eventRegistry.register(this)
     }
 
     @Subscribe
     Damage.Mutation onDamage(Damage event) {
-        event.kind() == 'damage' ? Damage.Mutation.veto() : Damage.Mutation.none()
+        event.kind == 'damage' ? Damage.Mutation.veto() : Damage.Mutation.none()
     }
 }
 `.trim()
