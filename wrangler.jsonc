@@ -1,13 +1,22 @@
 {
-  // An assets-only Worker: no script, just dist/ served from Cloudflare's
-  // edge. The name has to match the Worker that already owns ancaria.dev.
+  // dist/ served from Cloudflare's edge, with a small script in front of
+  // /files/* only. The name has to match the Worker that already owns
+  // ancaria.dev.
   "name": "ancaria-site",
+  "main": "worker/index.ts",
   "compatibility_date": "2026-09-09",
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
+    // Only these paths reach the script. Every page and asset is still
+    // answered straight from dist/ without running it.
+    "run_worker_first": ["/files/*"],
     // Anything that is not a built file gets index.html with a 200, which is
     // what keeps /players and /mods working on a hard refresh. This replaces
     // the _redirects file Pages needed for the same job.
     "not_found_handling": "single-page-application"
-  }
+  },
+  // Downloads that must not live in git, such as the pureHD archive the
+  // launcher fetches. Uploaded by hand with `wrangler r2 object put`.
+  "r2_buckets": [{ "binding": "FILES", "bucket_name": "ancaria-files" }]
 }
