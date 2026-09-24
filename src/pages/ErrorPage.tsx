@@ -13,15 +13,14 @@ function headlineFor(error: unknown): Headline {
     return {
       kicker: String(error.status),
       title: error.statusText || 'The site could not load that',
-      description: 'The request for this page came back as an error rather than a page.',
+      description: 'The server answered with an error instead of this page.',
     }
   }
 
   return {
     kicker: 'Error',
     title: 'This page broke on the way in',
-    description:
-      'Something in the site failed while rendering this page. That is a bug here, not anything you did.',
+    description: 'The site hit a bug while showing this page. It’s not something you did.',
   }
 }
 

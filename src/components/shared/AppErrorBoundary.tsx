@@ -35,7 +35,7 @@ export class AppErrorBoundary extends Component<AppErrorBoundaryProps, AppErrorB
       <ErrorScreen
         kicker="Error"
         title="The site failed to start"
-        description="Nothing on this page loaded. Reloading usually clears it; if it doesn’t, the details below are worth an issue."
+        description="Nothing on this page loaded. Reloading usually fixes it. If it doesn’t, please report the details below in an issue."
         detail={import.meta.env.DEV && error.stack ? error.stack : error.message}
         onRetry={() => window.location.reload()}
       />
