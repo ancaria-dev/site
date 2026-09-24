@@ -70,7 +70,7 @@ liefert diesen Build lokal aus, und `pnpm lint:fix` behebt, was Biome meldet.
 ## Releases
 
 Releases hat die Seite keine. Die CI in `.github/workflows/build.yml` prüft und
-baut jeden Commit und veröffentlicht `dist/` von `master` aus im
+baut jeden Pull Request und Push auf `master` und veröffentlicht `dist/` von `master` aus im
 Cloudflare-Worker `ancaria-site`. Live geht genau das, was die CI gebaut hat.
 Dafür braucht das Repository die Secrets `CLOUDFLARE_API_TOKEN` und
 `CLOUDFLARE_ACCOUNT_ID`.

@@ -67,7 +67,7 @@ pnpm lint
 ## Релизы
 
 Релизов у сайта нет. CI в `.github/workflows/build.yml` проверяет и собирает
-каждый коммит, а с `master` выкладывает `dist/` в Cloudflare Worker
+каждый пул-реквест и пуш в `master`, а с `master` выкладывает `dist/` в Cloudflare Worker
 `ancaria-site`. На прод попадает ровно то, что собрал CI. Для этого в
 репозитории должны быть секреты `CLOUDFLARE_API_TOKEN` и
 `CLOUDFLARE_ACCOUNT_ID`.

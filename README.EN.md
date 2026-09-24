@@ -68,7 +68,7 @@ serves that build locally, and `pnpm lint:fix` fixes what Biome reports.
 ## Releases
 
 The site has no releases. CI in `.github/workflows/build.yml` checks and
-builds every commit, and from `master` it deploys `dist/` to the Cloudflare
+builds every pull request and push to `master`, and from `master` it deploys `dist/` to the Cloudflare
 Worker `ancaria-site`. What ships is exactly what CI built. This needs the
 `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets.
 
