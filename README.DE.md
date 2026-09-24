@@ -39,14 +39,6 @@ LESS-CSS-Modulen, Build mit Vite. Biome ist der einzige Linter und Formatierer.
 Paketmanager ist pnpm, festgelegt in `package.json` und bereitgestellt von
 Corepack.
 
-## Platzhalter
-
-Die Screenshots in `src/assets/screenshots/` sind vorerst einfarbige
-Platzhalter. Jede Datei heißt nach dem, was sie einmal zeigen wird:
-`launcher.webp`, `ingame.webp` und so weiter. Für einen echten Screenshot
-ersetzt du einfach die Datei unter demselben Namen. Die Bildunterschriften
-stehen in `src/data/screenshots.ts`.
-
 ## Haftungsausschluss
 
 ancaria ist nur für den Einzelspielermodus gedacht. Das Projekt umgeht kein

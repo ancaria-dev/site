@@ -38,13 +38,6 @@ React 19 and TypeScript, routing with `react-router-dom`, styles in LESS CSS
 Modules, bundling with Vite. Biome is the only linter and formatter. The
 package manager is pnpm, pinned in `package.json` and provided by Corepack.
 
-## Placeholders
-
-The screenshots in `src/assets/screenshots/` are solid-color stand-ins for
-now. Each file is named for what it will show: `launcher.webp`, `ingame.webp`,
-and so on. To add a real capture, replace the file under the same name. The
-captions live in `src/data/screenshots.ts`.
-
 ## Disclaimer
 
 ancaria is for single-player use only. The project doesn't circumvent DRM,
