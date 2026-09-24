@@ -101,11 +101,10 @@ that raises `purehd.Checksum` and `purehd.Size`.
   icon (`launcher/ui/web/icon.png` and `launcher/tools/rsrc/sacred.ico`), which
   `launcher/tools/rsrc/icon.py` cuts from one source image. Replace them from
   that script's output rather than resizing these by hand.
-- `src/data/release.ts` is hand-maintained placeholder data (version,
-  file name, SHA-256, download URL) for the download section. There is no
-  build-time or runtime fetch from GitHub: this is a static site with no
-  backend. Update it by hand when `launcher` publishes a release worth
-  pointing at.
+- `src/hooks/useLatestRelease.ts` reads the latest `launcher` release from
+  the GitHub API in the browser (version, file name, SHA-256, download URL)
+  for the header and the download section. Until it answers, or when it
+  fails, a fallback points at the releases page. There is no backend.
 - Never state or imply that this project is affiliated with, endorsed by, or
   produced by Ascaron Entertainment, THQ Nordic, or any other rights holder
   of Sacred. The footer's disclaimer paragraph carries this; do not weaken it
