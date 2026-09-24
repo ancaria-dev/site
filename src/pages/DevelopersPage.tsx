@@ -74,8 +74,7 @@ export function DevelopersPage() {
   return (
     <>
       <PageHeader eyebrow="For developers" title="Three ways to get involved">
-        Write a mod against a stable API, scaffold one from a terminal, or help build the loader
-        underneath both.
+        Write a mod in the IDE, create one from the terminal, or help build the loader itself.
       </PageHeader>
 
       <div className={styles.container}>
@@ -90,16 +89,18 @@ export function DevelopersPage() {
             >
               Sacred Mod Development
             </a>{' '}
-            from the JetBrains Marketplace, or find it by name under Settings → Plugins.
+            from the JetBrains Marketplace, or search for it under Settings → Plugins.
           </p>
           <p>
-            The fastest way in: File → New → Project → Sacred Mod. The wizard asks for a name, a
-            description, a template (a bare entrypoint, or one with a working listener already wired
-            up), which of Java, Kotlin, or Groovy to write the mod in, and whether the build script
-            itself should be Kotlin DSL or Groovy DSL. Those two choices are independent, so a
-            Groovy mod can sit behind a Kotlin build script or the other way around. It can also run{' '}
-            <code>git init</code> and lay down an SRML repository, so the project is installable
-            from a launcher the moment it exists.
+            Then choose File → New → Project → Sacred Mod. The wizard asks for a name, a
+            description, and a template: a bare entrypoint or one with a working listener. You also
+            pick the mod’s language (Java, Kotlin, or Groovy) and the build script’s DSL (Kotlin or
+            Groovy).
+          </p>
+          <p>
+            The two choices are independent, so a Groovy mod can sit behind a Kotlin build script.
+            The wizard can also run <code>git init</code> and set up an SRML repository, so a
+            launcher can install the mod from day one.
           </p>
           <div className={styles.shots}>
             <figure className={styles.shot}>
@@ -119,10 +120,10 @@ export function DevelopersPage() {
             </figure>
           </div>
           <p>
-            A green Run Sacred configuration shows up the moment the plugin sees{' '}
-            <code>dev.ancaria.coderpack</code> in your build script. It builds the mod, installs it
-            into the Sacred Gold folder from Settings, downloads and SHA-256-verifies the loader
-            release if it isn’t cached yet, then starts the game with your mod already in it.
+            A green Run Sacred configuration appears as soon as the plugin sees{' '}
+            <code>dev.ancaria.coderpack</code> in your build script. It builds the mod and installs
+            it into the Sacred Gold folder set in Settings. If the loader release isn’t cached yet,
+            it downloads it and checks its SHA-256. Then it starts the game with your mod loaded.
           </p>
           <figure className={styles.shotWide}>
             <img src={ideaRun} alt="Run Sacred button in the IDE toolbar" />
@@ -133,35 +134,38 @@ export function DevelopersPage() {
         <section className={styles.section}>
           <h2>With the command line</h2>
           <p>
-            <code>coderpack new</code> writes the same project the wizard does, for a terminal
-            instead of an IDE. <code>--language</code> picks Java, Kotlin, or Groovy;{' '}
-            <code>--dsl</code> picks the build script syntax; the two never have to match. Only Java
-            ships with no extra runtime: a generated Kotlin jar carries its standard library at
-            around 1.8 MB, Groovy’s runtime pushes that to about 7.8 MB, and a Java mod stays close
-            to 1.8 KB.
+            <code>coderpack new</code> creates the same project from a terminal.{' '}
+            <code>--language</code> picks Java, Kotlin, or Groovy, and <code>--dsl</code> picks the
+            build script syntax. The two don’t have to match.
           </p>
           <p>
-            A Kotlin project also gets <code>dev.ancaria.coderpack:api-kotlin</code>, the same
-            loader API said in Kotlin. The event becomes a type argument instead of a class literal,
-            and one <code>on</code> covers both watching and deciding: a listener that wants to
-            change what the game is about to store says so with <code>mutate</code>, which only
-            compiles for an event that can be decided. It adds nothing the Java API cannot do —
-            every declaration in it forwards to one — so a Kotlin mod can drop the dependency and
-            call the Java API directly. The Kotlin tab on the <Link to="/">front page</Link> is
-            written with it.
+            Only Java adds no runtime. A Java mod stays around 1.8 KB, a Kotlin jar carries its
+            standard library at about 1.8 MB, and Groovy’s runtime brings it to about 7.8 MB.
+          </p>
+          <p>
+            A Kotlin project also gets <code>dev.ancaria.coderpack:api-kotlin</code>, the same API
+            in Kotlin style. The event becomes a type argument instead of a class literal, and one{' '}
+            <code>on</code> covers both watching and deciding. To change what the game is about to
+            store, a listener calls <code>mutate</code>, which compiles only for events that can be
+            decided.
+          </p>
+          <p>
+            The module adds nothing the Java API can’t do—every declaration forwards to it—so a
+            Kotlin mod can drop it and call the Java API directly. The Kotlin tab on the{' '}
+            <Link to="/">front page</Link> uses it.
           </p>
           <CodeBlock code={scaffoldSample} language="bash" title="terminal" />
-          <p>Either build script fills in the same descriptor:</p>
+          <p>Both build scripts produce the same descriptor:</p>
           <CodeBlock tabs={gradleTabs} />
           <RepositoryGrid repositories={modAuthorRepositories} />
         </section>
 
         <section className={styles.section}>
-          <h2>Covered Events</h2>
+          <h2>Covered events</h2>
           <p>
-            Every event a mod can subscribe to in API 3. A mutable event is asked before the game
-            commits the write, so a listener can return that event’s <code>Mutation</code> to veto
-            it or change what gets stored. Everything else reports what already happened.
+            These are all the events a mod can subscribe to in API 3. A mutable event arrives before
+            the game commits the write, so a listener can return the event’s <code>Mutation</code>{' '}
+            to veto it or change what gets stored. The rest report what already happened.
           </p>
           <div className={styles.tableWrap}>
             <table className={styles.events}>
@@ -190,8 +194,8 @@ export function DevelopersPage() {
             </table>
           </div>
           <p>
-            A wire event no class covers yet arrives as <code>Unknown</code>, with its wire name and
-            raw fields, so a tracer that subscribes to <code>Event</code> still sees it. The full
+            An event that no class covers yet arrives as <code>Unknown</code>, with its wire name
+            and raw fields, so a tracer subscribed to <code>Event</code> still sees it. The full
             contract is in{' '}
             <a
               href="https://github.com/ancaria-dev/coderpack/blob/master/docs/EVENTS.md"
@@ -200,8 +204,11 @@ export function DevelopersPage() {
             >
               coderpack’s EVENTS.md
             </a>
-            . For anything that is not an event, <code>getContext().getGame()</code> acts on the
-            game directly: <code>getWorld().getEntityRegistry().getPlayer()</code> is the hero, and{' '}
+            .
+          </p>
+          <p>
+            For anything that isn’t an event, <code>getContext().getGame()</code> acts on the game
+            directly. <code>getWorld().getEntityRegistry().getPlayer()</code> returns the hero, and{' '}
             <code>getConsole().print("...")</code> writes a line to the in-game console.
           </p>
         </section>
@@ -209,30 +216,32 @@ export function DevelopersPage() {
         <section className={styles.section}>
           <h2>Working on the platform</h2>
           <p>
-            The loader itself is three processes talking to each other: a Frida agent hooking
-            instructions inside the 32-bit game, a Rust host carrying frames between the game and
-            the JVM, and the JVM dispatching events to mods. None of it patches the game on disk;
-            every hook exists only in the running process. The full mechanics of how an event
-            crosses that boundary and back are on the <Link to="/how-it-works">How it works</Link>{' '}
-            page.
+            The loader has three parts: a Frida agent that hooks instructions inside the 32-bit
+            game, a Rust host that carries frames between the game and the JVM, and the JVM that
+            dispatches events to mods. Nothing patches the game on disk. How an event crosses that
+            boundary and back is on the <Link to="/how-it-works">How it works</Link> page.
           </p>
           <p>
-            Every hook and address is validated evidence before it ships. Contributors researching{' '}
-            <code>pureHD.exe</code> lean on three tools: <strong>Cheat Engine</strong> to watch
-            memory live and locate candidate writers, a <strong>PE analysis kit</strong> (pefile and
-            Capstone) for offline disassembly and string cataloguing, and <strong>Ghidra</strong>{' '}
-            for deeper static analysis and cross-referencing call graphs. A confirmed result moves
-            from <code>research</code> into <code>mappings</code> as a VA, an RVA, and a confidence
-            level: shipping code never hard-codes an address directly.
+            Every hook and address needs evidence before it ships. Research on{' '}
+            <code>pureHD.exe</code> relies on three tools: <strong>Cheat Engine</strong> to watch
+            memory live and find candidate writers, a <strong>PE analysis kit</strong> (pefile and
+            Capstone) for offline disassembly and string catalogues, and <strong>Ghidra</strong> for
+            deeper static analysis and call graphs.
           </p>
           <p>
-            Why <code>pureHD.exe</code> 2.0.2.118 and not the stock <code>Sacred.exe</code>: the
-            community pureHD mod fixes a long list of the original game’s bugs, leaves the balance
-            alone, keeps the feel of Sacred as it was, and only adds things that are genuinely
-            useful. That makes it the one build worth pinning every address to. A player whose
-            folder has another build is told so by the launcher, which can fetch this one from{' '}
+            A confirmed result moves from <code>research</code> into <code>mappings</code> as a VA,
+            an RVA, and a confidence level. Shipping code never hard-codes an address.
+          </p>
+          <p>
+            Why <code>pureHD.exe</code> 2.0.2.118 and not the stock <code>Sacred.exe</code>? The
+            community pureHD mod fixes a long list of the original’s bugs, keeps Sacred’s balance
+            and feel, and adds only what’s genuinely useful. That makes it the one build worth
+            pinning every address to.
+          </p>
+          <p>
+            If your folder has another build, the launcher tells you. It can fetch pureHD from{' '}
             <code>ancaria.dev/files/sacred.purehd.zip</code> and place <code>pureHD.exe</code> and{' '}
-            <code>pHD.dll</code> next to the game without touching the original executable.
+            <code>pHD.dll</code> next to the game, leaving the original executable alone.
           </p>
           <RepositoryGrid repositories={platformRepositories} />
         </section>
