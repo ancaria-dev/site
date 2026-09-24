@@ -1,11 +1,16 @@
-import { ModCard } from '../components/mods/ModCard.tsx'
+import { ModCard, ModCardPlaceholder } from '../components/mods/ModCard.tsx'
 import { Button } from '../components/shared/Button.tsx'
 import { Callout } from '../components/shared/Callout.tsx'
 import { CopyButton } from '../components/shared/CopyButton.tsx'
 import { PageHeader } from '../components/shared/PageHeader.tsx'
+import { Shimmer } from '../components/shared/Shimmer.tsx'
 import { modSubmissionUrl } from '../data/modSubmission.ts'
 import { useModCatalog } from '../hooks/useModCatalog.ts'
 import styles from './ModsPage.module.less'
+
+// The default repository ships four mods, so four placeholders fill the grid
+// about as much as the real cards will.
+const placeholderKeys = ['a', 'b', 'c', 'd']
 
 export function ModsPage() {
   const catalog = useModCatalog()
@@ -25,7 +30,21 @@ export function ModsPage() {
           </p>
         </Callout>
 
-        {catalog.loading && <p className={styles.status}>Reading the mod catalogue…</p>}
+        {catalog.loading && (
+          <section
+            className={styles.repository}
+            role="status"
+            aria-label="Loading the mod catalogue"
+          >
+            <Shimmer width="12em" height="1.3em" />
+            <Shimmer width="70%" />
+            <div className={styles.grid}>
+              {placeholderKeys.map((key) => (
+                <ModCardPlaceholder key={key} />
+              ))}
+            </div>
+          </section>
+        )}
         {!catalog.loading && catalog.error && (
           <p className={styles.status}>
             Couldn’t reach GitHub for the mod catalogue. Try again in a moment, or browse{' '}

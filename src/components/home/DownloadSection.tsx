@@ -1,6 +1,7 @@
 import { useLatestRelease } from '../../hooks/useLatestRelease.ts'
 import { Button } from '../shared/Button.tsx'
 import { RevealValue } from '../shared/RevealValue.tsx'
+import { Shimmer } from '../shared/Shimmer.tsx'
 import styles from './DownloadSection.module.less'
 
 export function DownloadSection() {
@@ -46,16 +47,28 @@ export function DownloadSection() {
         <dl className={styles.meta}>
           <div>
             <dt>Version</dt>
-            <dd>{release.version}</dd>
+            {release.loading ? (
+              <dd>
+                <Shimmer width="4.5em" label="Loading the version" />
+              </dd>
+            ) : (
+              <dd className={release.version ? undefined : styles.pending}>
+                {release.version ?? 'Unavailable'}
+              </dd>
+            )}
           </div>
           <div>
             <dt>SHA-256</dt>
-            {release.sha256 ? (
+            {release.loading ? (
+              <dd>
+                <Shimmer width="12em" label="Loading the SHA-256" />
+              </dd>
+            ) : release.sha256 ? (
               <dd>
                 <RevealValue value={release.sha256} />
               </dd>
             ) : (
-              <dd className={styles.hashPending}>{release.loading ? 'Reading…' : 'Unavailable'}</dd>
+              <dd className={styles.pending}>Unavailable</dd>
             )}
           </div>
         </dl>

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 
 export type LatestRelease = {
-  version: string
+  /** Null while loading, and when GitHub could not be reached. */
+  version: string | null
   fileName: string
   downloadUrl: string
   sha256: string | null
@@ -19,8 +20,11 @@ type GitHubRelease = {
   assets: GitHubAsset[]
 }
 
-const FALLBACK: LatestRelease = {
-  version: '0.99.0',
+// Nothing here is a guess. Until GitHub answers, the version and hash are
+// unknown, and the download link goes to the releases page, which always
+// lists the current build.
+const INITIAL: LatestRelease = {
+  version: null,
   fileName: 'Sacred Mod Loader',
   downloadUrl: 'https://github.com/ancaria-dev/launcher/releases/latest',
   sha256: null,
@@ -33,7 +37,7 @@ const FALLBACK: LatestRelease = {
  * download link, and hash stay correct without a manual edit every release.
  */
 export function useLatestRelease(): LatestRelease {
-  const [release, setRelease] = useState<LatestRelease>(FALLBACK)
+  const [release, setRelease] = useState<LatestRelease>(INITIAL)
 
   useEffect(() => {
     let cancelled = false
@@ -53,7 +57,7 @@ export function useLatestRelease(): LatestRelease {
         setRelease({
           version: data.tag_name.replace(/^v/, ''),
           fileName: 'Sacred Mod Loader',
-          downloadUrl: asset?.browser_download_url ?? FALLBACK.downloadUrl,
+          downloadUrl: asset?.browser_download_url ?? INITIAL.downloadUrl,
           sha256: asset?.digest?.replace(/^sha256:/, '') ?? null,
           loading: false,
         })

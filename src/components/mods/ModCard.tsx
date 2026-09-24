@@ -3,11 +3,32 @@ import sacredFallback from '../../assets/sacred-icon-fallback.webp'
 import type { ModEntry } from '../../hooks/useModCatalog.ts'
 import { Button } from '../shared/Button.tsx'
 import { RevealValue } from '../shared/RevealValue.tsx'
+import { Shimmer } from '../shared/Shimmer.tsx'
 import styles from './ModCard.module.less'
 
 type ModCardProps = {
   mod: ModEntry
   rawBase: string
+}
+
+/**
+ * The shape of a card while the catalogue is still loading. It keeps the
+ * grid at its final size, so the page does not jump when the mods arrive.
+ */
+export function ModCardPlaceholder() {
+  return (
+    <div className={styles.card} aria-hidden="true">
+      <Shimmer className={styles.icon} width="56px" height="56px" radius="10px" />
+      <div className={styles.body}>
+        <Shimmer width="55%" height="1.1em" />
+        <div className={styles.placeholderLines}>
+          <Shimmer height="0.85em" />
+          <Shimmer width="80%" height="0.85em" />
+        </div>
+        <Shimmer width="7.5em" height="2.2em" radius="6px" />
+      </div>
+    </div>
+  )
 }
 
 export function ModCard({ mod, rawBase }: ModCardProps) {
