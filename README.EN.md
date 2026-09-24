@@ -13,64 +13,69 @@
 
 # Site
 
-Source for **Ancaria for Developers**, the project's single-page site. A
-landing page, a page for players, and a page for developers, built as a
-static application and published through Cloudflare Pages.
+The source of [ancaria.dev](https://ancaria.dev), the site that gets players to
+the launcher and developers to the repository they need.
 
-This is a proof-of-concept's shop window, not a separate product. Its job is
-to explain what Ancaria is, show it (with placeholders standing in for
-screenshots for now), and get a player to the launcher download or a
-developer to the repository they actually need. Documentation that already
-lives in a component repository's README is not duplicated here. It gets a
-link instead.
+The site explains what ancaria is and shows it at work. It doesn't repeat the
+detailed docs. It links to the component READMEs instead.
 
-## Stack
+There's no backend. The pages read the launcher version and the mod list
+straight from GitHub when they open.
 
-React 19 with TypeScript, routed with `react-router-dom`, styled with LESS in
-CSS Modules, bundled with Vite, linted and formatted with Biome alone --
-there is no ESLint and no Prettier config. The package manager is pnpm,
-pinned in `package.json` and resolved through Corepack.
-
-## Development
+## Getting started
 
 ```text
 corepack enable
 pnpm install
-pnpm dev       # local dev server
-pnpm build     # tsc -b && vite build, output in dist/
-pnpm preview   # serve the production build locally
-pnpm lint       # biome check .
-pnpm lint:fix   # biome check --write .
+pnpm dev
 ```
 
-## Deployment
+`pnpm dev` starts a local development server.
 
-CI in `.github/workflows/build.yml` installs dependencies, lints, builds, and
-on `master` publishes `dist/` to Cloudflare Pages by direct upload
-with `wrangler`. Cloudflare Pages' own build step is not used, so what ships
-is exactly what CI already built and linted. Actually deploying needs
-`CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` configured as repository
-secrets.
+## Stack
+
+React 19 and TypeScript, routing with `react-router-dom`, styles in LESS CSS
+Modules, bundling with Vite. Biome is the only linter and formatter. The
+package manager is pnpm, pinned in `package.json` and provided by Corepack.
 
 ## Placeholders
 
-The screenshots in `src/assets/screenshots/` are solid-color WebP files,
-named for what they will eventually show (`launcher.webp`, `ingame.webp`,
-and so on). Their captions live in `src/data/screenshots.ts`. Release
-information (version, file name, SHA-256, download link) in
-`src/data/release.ts` is filled in by hand and does not update itself --
-the site has no backend.
+The screenshots in `src/assets/screenshots/` are solid-color stand-ins for
+now. Each file is named for what it will show: `launcher.webp`, `ingame.webp`,
+and so on. To add a real capture, replace the file under the same name. The
+captions live in `src/data/screenshots.ts`.
 
 ## Disclaimer
 
-Ancaria is built for single-player use only. The project does not circumvent
-DRM, grants no multiplayer advantage (there is no multiplayer) and
-distributes no files from the game itself. Hooks exist only in the running
-process and disappear with it. The site is not affiliated with Ascaron
-Entertainment, THQ Nordic, or any other rights holder of Sacred, and should
-never be worded to suggest otherwise.
+ancaria is for single-player use only. The project doesn't circumvent DRM,
+doesn't distribute game files, and gives no multiplayer advantage, because it
+has no multiplayer. Its hooks live only in the running game and vanish with
+it.
+
+The site isn't affiliated with Ascaron Entertainment, THQ Nordic, or any other
+rights holder of Sacred. Never word the copy as if it were.
+
+## Building
+
+```text
+pnpm build
+pnpm lint
+```
+
+`pnpm build` checks types and builds the site into `dist/`. `pnpm preview`
+serves that build locally, and `pnpm lint:fix` fixes what Biome reports.
+
+## Releases
+
+The site has no releases. CI in `.github/workflows/build.yml` checks and
+builds every commit, and from `master` it deploys `dist/` to the Cloudflare
+Worker `ancaria-site`. What ships is exactly what CI built. This needs the
+`CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets.
+
+The same Worker serves `/files/*` from the R2 bucket `ancaria-files`. That's
+where files live that don't belong in git, such as the pureHD archive the
+launcher downloads.
 
 ## License
 
-The code is distributed under the MIT License. The full text is in
-[LICENSE](LICENSE).
+MIT, see [LICENSE](LICENSE).

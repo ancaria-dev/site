@@ -13,67 +13,72 @@
 
 # Site
 
-Quellcode von **Ancaria for Developers**, der einseitigen Projektseite. Eine
-Startseite, eine Seite für Spieler und eine Seite für Entwickler, gebaut als
-statische Anwendung und über Cloudflare Pages veröffentlicht.
+Die Quellen von [ancaria.dev](https://ancaria.dev), der Seite, die Spieler zum
+Launcher und Entwickler zum passenden Repository bringt.
 
-Das ist das Schaufenster eines Proof of Concept, kein eigenständiges Produkt.
-Die Seite soll erklären, was Ancaria ist, es zeigen (vorerst mit
-Platzhaltern statt Screenshots) und einen Spieler zum Launcher-Download oder
-einen Entwickler zum passenden Repository führen. Dokumentation, die bereits
-im README eines Komponenten-Repositories steht, wird hier nicht dupliziert --
-stattdessen gibt es einen Link.
+Die Seite erklärt, was ancaria ist, und zeigt es in Aktion. Die ausführliche
+Doku wiederholt sie nicht, sondern verlinkt die READMEs der Komponenten.
 
-## Stack
+Ein Backend gibt es nicht. Die Seiten lesen die Launcher-Version und die
+Mod-Liste beim Öffnen direkt von GitHub.
 
-React 19 mit TypeScript, Routing über `react-router-dom`, Styling mit LESS in
-CSS-Modulen, Build mit Vite, Linting und Formatierung ausschließlich mit
-Biome -- weder ESLint noch Prettier sind konfiguriert. Paketmanager ist
-pnpm, dessen Version in `package.json` festgelegt und über Corepack
-aufgelöst wird.
-
-## Entwicklung
+## Erste Schritte
 
 ```text
 corepack enable
 pnpm install
-pnpm dev       # lokaler Entwicklungsserver
-pnpm build     # tsc -b && vite build, Ausgabe in dist/
-pnpm preview   # Produktions-Build lokal testen
-pnpm lint       # biome check .
-pnpm lint:fix   # biome check --write .
+pnpm dev
 ```
 
-## Deployment
+`pnpm dev` startet einen lokalen Entwicklungsserver.
 
-Die CI in `.github/workflows/build.yml` installiert Abhängigkeiten, prüft
-den Lint, baut das Projekt und veröffentlicht auf `master` `dist/` per
-Direct Upload mit `wrangler` auf Cloudflare Pages. Der eigene Build-Schritt
-von Cloudflare Pages wird nicht verwendet -- live landet genau das, was die
-CI zuvor gebaut und geprüft hat. Für eine tatsächliche Veröffentlichung
-müssen `CLOUDFLARE_API_TOKEN` und `CLOUDFLARE_ACCOUNT_ID` als
-Repository-Secrets hinterlegt sein.
+## Stack
+
+React 19 und TypeScript, Routing mit `react-router-dom`, Styles in
+LESS-CSS-Modulen, Build mit Vite. Biome ist der einzige Linter und Formatierer.
+Paketmanager ist pnpm, festgelegt in `package.json` und bereitgestellt von
+Corepack.
 
 ## Platzhalter
 
-Die Screenshots in `src/assets/screenshots/` sind einfarbige WebP-Dateien,
-benannt nach dem, was später darauf zu sehen sein wird (`launcher.webp`,
-`ingame.webp` und so weiter). Die Bildunterschriften liegen in
-`src/data/screenshots.ts`. Die Release-Daten (Version, Dateiname, SHA-256,
-Download-Link) in `src/data/release.ts` sind von Hand gepflegt und
-aktualisieren sich nicht selbst -- die Seite hat kein Backend.
+Die Screenshots in `src/assets/screenshots/` sind vorerst einfarbige
+Platzhalter. Jede Datei heißt nach dem, was sie einmal zeigen wird:
+`launcher.webp`, `ingame.webp` und so weiter. Für einen echten Screenshot
+ersetzt du einfach die Datei unter demselben Namen. Die Bildunterschriften
+stehen in `src/data/screenshots.ts`.
 
 ## Haftungsausschluss
 
-Ancaria ist ausschließlich für den Einzelspielermodus gedacht. Das Projekt
-umgeht kein DRM, verschafft keinen Mehrspieler-Vorteil -- einen Mehrspieler-
-modus gibt es nicht -- und verbreitet keine Dateien des Spiels selbst. Hooks
-existieren nur im laufenden Prozess und verschwinden mit ihm. Die Seite steht
-in keiner Verbindung zu Ascaron Entertainment, THQ Nordic oder anderen
-Rechteinhabern von Sacred und darf nie so formuliert werden, dass eine
-solche Verbindung nahegelegt wird.
+ancaria ist nur für den Einzelspielermodus gedacht. Das Projekt umgeht kein
+DRM, verbreitet keine Spieldateien und verschafft keinen Vorteil im
+Mehrspielermodus, denn den gibt es hier nicht. Die Hooks leben nur im
+laufenden Spiel und verschwinden mit ihm.
+
+Die Seite steht in keiner Verbindung zu Ascaron Entertainment, THQ Nordic oder
+anderen Rechteinhabern von Sacred. Formulier Texte nie so, als gäbe es eine.
+
+## Bauen
+
+```text
+pnpm build
+pnpm lint
+```
+
+`pnpm build` prüft die Typen und baut die Seite nach `dist/`. `pnpm preview`
+liefert diesen Build lokal aus, und `pnpm lint:fix` behebt, was Biome meldet.
+
+## Releases
+
+Releases hat die Seite keine. Die CI in `.github/workflows/build.yml` prüft und
+baut jeden Commit und veröffentlicht `dist/` von `master` aus im
+Cloudflare-Worker `ancaria-site`. Live geht genau das, was die CI gebaut hat.
+Dafür braucht das Repository die Secrets `CLOUDFLARE_API_TOKEN` und
+`CLOUDFLARE_ACCOUNT_ID`.
+
+Derselbe Worker liefert `/files/*` aus dem R2-Bucket `ancaria-files`. Dort
+liegen Dateien, die nicht ins Git gehören, etwa das pureHD-Archiv für den
+Launcher.
 
 ## Lizenz
 
-Der Code steht unter der MIT-Lizenz. Der vollständige Text befindet sich in
-[LICENSE](LICENSE).
+MIT, siehe [LICENSE](LICENSE).
