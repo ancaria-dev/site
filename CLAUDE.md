@@ -119,9 +119,8 @@ that raises `purehd.Checksum` and `purehd.Size`.
 - Keep the single-player-only, no-DRM-circumvention, no-multiplayer framing
   intact anywhere the project is described. This mirrors the root workspace
   CLAUDE.md and is a hard project boundary, not house style.
-- Do not invent a production domain for the site in copy or metadata. Link to
-  GitHub (`github.com/ancaria-dev/...`) for anything that needs a concrete
-  URL until the production domain is actually serving the site.
+- The production origin is `https://ancaria.dev`. Canonical URLs, the
+  sitemap, and structured data use it. Do not invent other domains.
 
 ## Prerendering and metadata
 
