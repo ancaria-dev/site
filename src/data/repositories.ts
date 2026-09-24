@@ -8,7 +8,7 @@ export const platformRepositories: RepositoryLink[] = [
   {
     name: 'mappings',
     description:
-      'The address registry for pureHD.exe 2.0.2.118: every VA, RVA, and confidence level.',
+      'The address registry for pureHD.exe 2.0.2.118, with each VA, RVA, and confidence level.',
     url: 'https://github.com/ancaria-dev/mappings',
   },
   {
@@ -18,12 +18,13 @@ export const platformRepositories: RepositoryLink[] = [
   },
   {
     name: 'coderpack',
-    description: 'The Frida agent, the Java event API, and the JVM-side loader mods run against.',
+    description: 'The Frida agent, the Java event API, and the JVM-side loader that runs mods.',
     url: 'https://github.com/ancaria-dev/coderpack',
   },
   {
     name: 'protocol',
-    description: 'The wire protocol and the Rust host that carries frames between game and JVM.',
+    description:
+      'The wire protocol and the Rust host that carries frames between the game and the JVM.',
     url: 'https://github.com/ancaria-dev/protocol',
   },
 ]
@@ -31,12 +32,12 @@ export const platformRepositories: RepositoryLink[] = [
 export const modAuthorRepositories: RepositoryLink[] = [
   {
     name: 'build',
-    description: 'The Gradle plugin, linter, and project scaffolder for building Sacred mods.',
+    description: 'The Gradle plugin, linter, and project scaffolder for Sacred mods.',
     url: 'https://github.com/ancaria-dev/build',
   },
   {
     name: 'idea',
-    description: 'An IntelliJ IDEA plugin: new project wizard, one-click run, gutter icons.',
+    description: 'The IntelliJ IDEA plugin: New Project wizard, one-click run, gutter icons.',
     url: 'https://github.com/ancaria-dev/idea',
   },
   {
@@ -46,7 +47,7 @@ export const modAuthorRepositories: RepositoryLink[] = [
   },
   {
     name: 'launcher',
-    description: 'The Go executable players run: useful context for how mods get loaded.',
+    description: 'The Go executable players run. Read it to see how mods get loaded.',
     url: 'https://github.com/ancaria-dev/launcher',
   },
 ]

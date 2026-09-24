@@ -20,7 +20,7 @@ export const coveredEvents: CoveredEvent[] = [
     name: 'Experience',
     action: 'Experience about to be granted',
     decides: 'change total, veto',
-    description: 'The decision is the new total; the game clamps it on its own.',
+    description: 'The decision is the new total, and the game clamps it itself.',
   },
   {
     name: 'Damage',
@@ -44,7 +44,7 @@ export const coveredEvents: CoveredEvent[] = [
     name: 'CombatArt',
     action: 'Rune invested in a combat art',
     decides: 'change level, veto',
-    description: 'The decision is the art’s new base level; a veto still spends the rune.',
+    description: 'The decision is the art’s new base level. A veto still spends the rune.',
   },
   {
     name: 'Pickup',
@@ -56,7 +56,7 @@ export const coveredEvents: CoveredEvent[] = [
     name: 'Console',
     action: 'Line typed into the console',
     decides: 'veto (claim as a command)',
-    description: 'A veto takes the line as the mod’s own command; the game never sees it.',
+    description: 'A veto claims the line as the mod’s command, and the game never sees it.',
   },
   {
     name: 'Hero',
@@ -164,7 +164,7 @@ export const coveredEvents: CoveredEvent[] = [
     name: 'Region',
     action: 'Hero crossed a region',
     decides: null,
-    description: 'The game’s own map cell, entered or left; ids only, no names.',
+    description: 'The game’s own map cell, entered or left. Ids only, no names.',
   },
   {
     name: 'Sector',
@@ -176,13 +176,13 @@ export const coveredEvents: CoveredEvent[] = [
     name: 'Spawn',
     action: 'Creature entered the world',
     decides: null,
-    description: 'A monster spawned or an NPC streamed in; silent while a world loads.',
+    description: 'A monster spawned or an NPC streamed in. Silent while a world loads.',
   },
   {
     name: 'Despawn',
     action: 'Creature left the world',
     decides: null,
-    description: 'A corpse cleared or a sector streamed out; not a death.',
+    description: 'A corpse cleared or a sector streamed out. Not a death.',
   },
   {
     name: 'MobHit',
@@ -206,19 +206,19 @@ export const coveredEvents: CoveredEvent[] = [
     name: 'Resurrection',
     action: 'Hero brought back after dying',
     decides: null,
-    description: 'The game agreeing the death was real, counted in the journal.',
+    description: 'The game confirms the death and counts it in the journal.',
   },
   {
     name: 'Discovery',
     action: 'New area discovered',
     decides: null,
-    description: 'The “World Discovered” count moved; which area is not known.',
+    description: 'The “World Discovered” count went up. Which area isn’t known.',
   },
   {
     name: 'Quest',
     action: 'Quest started or ended',
     decides: null,
-    description: 'Identified by the number Sacred’s quest files use; no title.',
+    description: 'Identified by the number Sacred’s quest files use, without a title.',
   },
   {
     name: 'Loot',
