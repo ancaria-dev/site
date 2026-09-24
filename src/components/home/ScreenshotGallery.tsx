@@ -17,7 +17,7 @@ export function ScreenshotGallery() {
     <section className={styles.section}>
       <h2 className={styles.title}>See it running</h2>
       <p className={styles.subtitle}>
-        Picking mods in the launcher, a mod reacting mid-run, and the tooling behind both.
+        Pick mods in the launcher, watch one react in the game, and see the tools behind both.
       </p>
       <div className={styles.grid}>
         {screenshots.map((shot) => (

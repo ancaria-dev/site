@@ -5,12 +5,11 @@ import styles from './Hero.module.less'
 export function Hero() {
   return (
     <section className={styles.hero}>
-      <p className={styles.eyebrow}>Ancaria for Developers</p>
+      <p className={styles.eyebrow}>A mod loader for Sacred Gold</p>
       <h1 className={styles.title}>Sacred Gold, twenty years later, modded again</h1>
       <p className={styles.lede}>
-        A proof-of-concept mod-loading ecosystem for Sacred Gold. Write mods in Kotlin, Java, or
-        Groovy against an event API, run them alongside the game, and never touch a single file on
-        disk.
+        Ancaria loads mods into Sacred Gold while the game runs. Pick mods in the launcher and
+        press Play, or write your own in Java, Kotlin, or Groovy. Your game files stay untouched.
       </p>
       <div className={styles.actions}>
         <Button variant="primary" href="#download">

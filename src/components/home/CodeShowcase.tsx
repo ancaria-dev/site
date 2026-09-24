@@ -71,7 +71,7 @@ const TABS: (CodeTab & { heading: string; description: string })[] = [
     language: 'kotlin',
     code: goldCode,
     description:
-      'Subscribe to an event, react to it, done. GoldRushMod tops up every gold gain by half again. The Kotlin module turns the event into a type argument, and mutate hands the new delta back to the game, so the whole decision is one line.',
+      'Subscribe to an event and decide what happens. GoldRushMod adds half again to every gold pickup. In Kotlin the event is a type argument, and mutate hands the new amount back to the game in one line.',
   },
   {
     id: 'java',
@@ -80,7 +80,7 @@ const TABS: (CodeTab & { heading: string; description: string })[] = [
     language: 'java',
     code: experienceCode,
     description:
-      'The same event bus from Java, no wrapper needed. ExperienceBoostMod adds a flat 20% on top of every experience gain by returning the new total as a mutation.',
+      'Java uses the same events, no wrapper needed. ExperienceBoostMod adds 20% to every experience gain by returning the new total.',
   },
   {
     id: 'groovy',
@@ -89,7 +89,7 @@ const TABS: (CodeTab & { heading: string; description: string })[] = [
     language: 'groovy',
     code: damageCode,
     description:
-      'Groovy reads the same annotation and the same event classes. GodMod vetoes every hit before it lands, single-player god mode in a handful of lines.',
+      'Groovy reads the same annotation and event classes. GodMod cancels every hit before it lands: single-player god mode in a few lines.',
   },
 ]
 

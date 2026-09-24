@@ -13,11 +13,11 @@ export function DownloadSection() {
     },
     {
       title: 'Run the launcher',
-      body: 'It detects your game build, finds or fetches a JDK, and lists available mods.',
+      body: 'It finds your game build and Java, fetches a JDK if needed, and lists the mods.',
     },
     {
-      title: 'Press play',
-      body: 'Tick the mods you want from the Available tab, then start the game as usual.',
+      title: 'Press Play',
+      body: 'Tick the mods you want on the Available tab and start the game as usual.',
     },
   ]
 
@@ -26,7 +26,7 @@ export function DownloadSection() {
       <div className={styles.panel}>
         <h2 className={styles.title}>Get the mod loader</h2>
         <p className={styles.subtitle}>
-          One executable. No install wizard, no changes to your game files.
+          One file. No installer, and your game files stay as they are.
         </p>
 
         <div className={styles.actions}>
