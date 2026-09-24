@@ -3,9 +3,9 @@
 ## Repository scope
 
 This repository is the source for **Ancaria for Developers**, the marketing
-and documentation front end for the project. It is a static single-page
-React application: a landing page, a page for players, and a page for
-developers. It contains no game code, no loader code, and no build tooling
+and documentation front end for the project. It is a React application whose
+routes are prerendered to static HTML at build time: a landing page, pages for
+players, mods, and developers, and a page on how the loader works. It contains no game code, no loader code, and no build tooling
 that any other repository depends on.
 
 The site is a proof-of-concept pitch for a proof-of-concept loader. Its job is
@@ -32,14 +32,18 @@ Biome (no ESLint, no Prettier). Package manager is pnpm, pinned via
                       icons, anything used by more than one page
       pages/         One component per route: Home, Players, Developers, 404,
                       and ErrorPage, the router error element
-      data/          Plain data consumed by components: release info,
-                      screenshot captions, component repository links
+      data/          Plain data consumed by components: pages.ts (every
+                      route's title, description, and canonical URL),
+                      structured data, screenshot captions, repository links
+      routes.tsx     The route tree, shared by main.tsx and entry-server.tsx
+      entry-server.tsx  Renders one route to HTML for the prerender
       styles/        tokens.less (design tokens) and global.less (reset and
                       base typography); everything else is a CSS module
       assets/screenshots/  Placeholder images; see below
     public/          Static files served as-is: the favicons, robots.txt,
-                      sitemap.xml, og-image.png
-    tools/           og.html and og.ps1, which render the social card
+                      og-image.png
+    tools/           og.html and og.ps1, which render the social card, and
+                      prerender.mjs, the last step of the build
 
 ## Setup and commands
 
@@ -47,7 +51,7 @@ Biome (no ESLint, no Prettier). Package manager is pnpm, pinned via
 corepack enable
 pnpm install
 pnpm dev       # local dev server
-pnpm build     # tsc -b && vite build, output in dist/
+pnpm build     # tsc, client and SSR builds, prerender; output in dist/
 pnpm preview   # serve the production build locally
 pnpm lint      # biome check .
 pnpm lint:fix  # biome check --write .
@@ -119,6 +123,34 @@ that raises `purehd.Checksum` and `purehd.Size`.
   GitHub (`github.com/ancaria-dev/...`) for anything that needs a concrete
   URL until the production domain is actually serving the site.
 
+## Prerendering and metadata
+
+`pnpm build` runs two Vite builds: the client bundle into `dist/`, then
+`src/entry-server.tsx` as an SSR bundle into `dist-ssr/`. `tools/prerender.mjs`
+then renders every route in `src/data/pages.ts` into the client's
+`index.html` and writes `dist/index.html`, `dist/<route>.html`, `dist/404.html`,
+and `dist/sitemap.xml`, and deletes `dist-ssr/`. Crawlers and link previews that
+run no JavaScript therefore see each page's text, title, description, and
+canonical URL. In the browser, `main.tsx` hydrates that markup.
+
+- A new route goes into both `src/routes.tsx` and `src/data/pages.ts`. The
+  second gives it a head, a prerendered file, and a sitemap entry. A route
+  missing there renders, but as the 404 page's head.
+- `index.html` has no title or description of its own, only a
+  `<!--route-head-->` marker. The prerender fills it per route, the dev server
+  fills it with the front page's tags (the `route-head` plugin in
+  `vite.config.ts`), and `components/layout/RouteHead.tsx` replaces every
+  `data-route-head` tag after each client navigation.
+- The first render in the browser has to match the prerendered HTML, so a
+  component must not read `window`, storage, or the clock while rendering.
+  Fetch in an effect and show a `Shimmer` until the data arrives, which is
+  also what the prerender captures.
+- The front page head carries schema.org JSON-LD from
+  `src/data/structuredData.ts`. Never add ratings or reviews to it.
+- `prismjs` is bundled into the SSR build (`ssr.noExternal`): its grammar
+  files patch a global `Prism`, and loaded as external modules they would run
+  before `lib/prismGlobal.ts` sets it.
+
 ## Gotchas
 
 - Errors are caught at three levels, and each one exists because the level
@@ -135,8 +167,9 @@ that raises `purehd.Checksum` and `purehd.Size`.
 - `*.module.less` files import `tokens.less` with `@import (reference)`, not
   a plain `@import`. A plain import would emit the token file's own rules
   (there are none, but keep the pattern) into every module that imports it.
-- `not_found_handling: "single-page-application"` in `wrangler.jsonc` is what
-  makes client-side routing work. Without it every route but `/` is a 404 from
-  the edge before React Router ever runs. Pages needed a `public/_redirects`
-  file for this; a Worker does not, and its `_redirects` support has no
-  equivalent of the `200` rewrite that file used.
+- `not_found_handling: "404-page"` in `wrangler.jsonc` answers any path
+  without a built file with `dist/404.html` and a 404 status. Every real route
+  is a file (`/players` is `players.html`, served without a trailing slash by
+  the default `html_handling`), so nothing needs the old single-page fallback,
+  which answered unknown paths with the front page and a 200. `vite preview`
+  still has that fallback, so check 404 behaviour with `wrangler dev`.
