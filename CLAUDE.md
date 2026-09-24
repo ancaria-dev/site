@@ -103,8 +103,11 @@ that raises `purehd.Checksum` and `purehd.Size`.
   that script's output rather than resizing these by hand.
 - `src/hooks/useLatestRelease.ts` reads the latest `launcher` release from
   the GitHub API in the browser (version, file name, SHA-256, download URL)
-  for the header and the download section. Until it answers, or when it
-  fails, a fallback points at the releases page. There is no backend.
+  for the header and the download section. Until it answers, the version
+  and hash show as `Shimmer` placeholders, never a guessed value. If it
+  fails, they read “Unavailable” and the download links go to the releases
+  page. There is no backend. Anything else fetched at run time, such as the
+  mod catalogue, also shows `Shimmer` placeholders while it loads.
 - Never state or imply that this project is affiliated with, endorsed by, or
   produced by Ascaron Entertainment, THQ Nordic, or any other rights holder
   of Sacred. The footer's disclaimer paragraph carries this; do not weaken it
