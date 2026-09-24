@@ -10,7 +10,7 @@ import { origin } from './data/pages.ts'
 import './lib/prismLanguages.ts'
 import { routes } from './routes.tsx'
 
-export { headTags, notFoundPage, pages } from './data/pages.ts'
+export { headTags, notFoundPage, origin, pages } from './data/pages.ts'
 
 export async function render(path: string): Promise<string> {
   const handler = createStaticHandler(routes)

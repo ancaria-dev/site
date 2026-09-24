@@ -8,6 +8,8 @@
 //
 // Pages that fetch at run time, the release and the mod catalogue, render their
 // loading shimmers here. The browser fills them in after hydration.
+//
+// It also writes dist/sitemap.xml from the same page list.
 
 import { readFile, rm, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
@@ -16,7 +18,7 @@ const root = fileURLToPath(new URL('..', import.meta.url))
 const dist = `${root}dist/`
 const bundle = `${root}dist-ssr/`
 
-const { render, headTags, pages, notFoundPage } = await import(
+const { render, headTags, origin, pages, notFoundPage } = await import(
   new URL('../dist-ssr/entry-server.js', import.meta.url).href
 )
 
@@ -41,5 +43,20 @@ for (const page of pages) {
 }
 // Any path the router does not know renders the catch-all route.
 await write(notFoundPage, '/this-page-does-not-exist', '404.html')
+
+// The sitemap comes from the same list, so a new page cannot be missing from
+// it. No <lastmod>: nothing here knows honestly when a page last changed.
+const urls = pages
+  .filter((page) => !page.noindex)
+  .map((page) => `  <url><loc>${origin}${page.path}</loc></url>`)
+await writeFile(
+  `${dist}sitemap.xml`,
+  `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.join('\n')}
+</urlset>
+`,
+)
+console.log(`wrote dist/sitemap.xml with ${urls.length} pages`)
 
 await rm(bundle, { recursive: true, force: true })
