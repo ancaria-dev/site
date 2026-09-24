@@ -7,5 +7,5 @@ export type ModSource = {
 
 // The loader itself will follow any repository shaped this way, added by
 // the player from the launcher's source settings. This is only the short
-// list the platform team maintains and vouches for.
+// list I maintain and vouch for.
 export const modSources: ModSource[] = [{ name: 'Ancaria', repo: 'ancaria-dev/mods' }]
