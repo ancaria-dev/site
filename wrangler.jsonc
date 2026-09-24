@@ -11,10 +11,12 @@
     // Only these paths reach the script. Every page and asset is still
     // answered straight from dist/ without running it.
     "run_worker_first": ["/files/*"],
-    // Anything that is not a built file gets index.html with a 200, which is
-    // what keeps /players and /mods working on a hard refresh. This replaces
-    // the _redirects file Pages needed for the same job.
-    "not_found_handling": "single-page-application"
+    // Every route is a prerendered file (tools/prerender.mjs): /players is
+    // players.html, which the default html_handling serves without a trailing
+    // slash. Anything else gets the prerendered 404.html with a real 404
+    // status, instead of the front page with a 200, which search engines
+    // would index as a duplicate of it.
+    "not_found_handling": "404-page"
   },
   // Downloads that must not live in git, such as the pureHD archive the
   // launcher fetches. Uploaded by hand with `wrangler r2 object put`.

@@ -1,6 +1,7 @@
 // The one source for every route's <head>: title, description, and canonical
-// URL. components/layout/RouteHead.tsx swaps these tags on every navigation, so
-// each route stops presenting itself as a copy of the front page.
+// URL. tools/prerender.mjs writes them into each built page, and
+// components/layout/RouteHead.tsx swaps them on every client navigation, so a
+// crawler with or without JavaScript sees each route as its own page.
 //
 // Keep a title under about 60 characters and a description near 150, or search
 // results cut them off.

@@ -4,8 +4,9 @@ import { headTags, pageFor } from '../../data/pages.ts'
 
 /**
  * Replaces the route's <head> tags after every navigation. It renders nothing:
- * the tags come from the same `headTags` that wrote the first ones into
- * index.html, so there is one definition of what a page's head looks like.
+ * the tags come from the same `headTags` that wrote the first ones into the
+ * prerendered page, so there is one definition of what a page's head looks
+ * like.
  */
 export function RouteHead() {
   const { pathname } = useLocation()
