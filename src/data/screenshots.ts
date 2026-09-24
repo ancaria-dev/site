@@ -10,7 +10,11 @@ export type Screenshot = {
 export const screenshots: Screenshot[] = [
   { id: 'launcher', file: 'launcher.webp', caption: 'Picking mods in the launcher before Play' },
   { id: 'ingame', file: 'ingame.webp', caption: 'A mod reacting to an event in the running game' },
-  { id: 'idea', file: 'idea.webp', caption: 'The IntelliJ IDEA plugin: one green arrow starts the game' },
+  {
+    id: 'idea',
+    file: 'idea.webp',
+    caption: 'The IntelliJ IDEA plugin: one green arrow starts the game',
+  },
   {
     id: 'console',
     file: 'console.webp',
