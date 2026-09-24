@@ -6,6 +6,8 @@
 // Keep a title under about 60 characters and a description near 150, or search
 // results cut them off.
 
+import { structuredData } from './structuredData.ts'
+
 export const origin = 'https://ancaria.dev'
 
 export type PageMeta = {
@@ -91,6 +93,11 @@ export function headTags(page: PageMeta): string {
       `<link data-route-head rel="canonical" href="${url}" />`,
       `<meta data-route-head property="og:url" content="${url}" />`,
     )
+  }
+  if (page.path === '/') {
+    // `<` is escaped so no string in the data can close the script element.
+    const json = JSON.stringify(structuredData()).replace(/</g, '\\u003c')
+    tags.push(`<script data-route-head type="application/ld+json">${json}</script>`)
   }
   return tags.join('\n    ')
 }
